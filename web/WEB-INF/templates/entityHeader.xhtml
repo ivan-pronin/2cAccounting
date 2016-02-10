@@ -1,0 +1,51 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+<h:head>
+    <title>Facelet Title</title>
+</h:head>
+
+<h:body>
+    <ui:composition>
+        <div class="left-menu">
+            <h:form styleClass="entityHeader" id="entityHeaderForm">
+                <div class="dropdown">
+
+                    <h:selectOneMenu id="entity_from_select" title="Отправитель">
+                        <f:selectItem itemLabel="Отправитель:" itemValue="Отправитель:"/>
+                        <f:selectItems value="#{organizationDAOImpl.getAll()}"/>
+                    </h:selectOneMenu>
+
+                    <h:selectOneMenu id="entity_to_select" title="Получатель">
+                        <f:selectItem itemLabel="Получатель:" itemValue="Получатель:"/>
+                        <f:selectItems value="#{organizationDAOImpl.getAll()}"/>
+                    </h:selectOneMenu>
+
+                    <p:inputText id="entity_date" value="Дата:" onclick="this.value='';"/>
+                    <p:inputText id="entity_number" value="Номер:" onclick="this.value='';"/>
+                </div>
+
+                <div class="authorization">
+                    <h:form>
+                        <p:inputText id="entity_input_data1" value="#{invoiceFacade.invoice.number}" onclick="this.value='';"/>
+                        <p:commandButton id="btnSubmitData" value="Сохранить" styleClass="button" action="#{invoiceFacade.submit}">
+                        </p:commandButton>
+                    </h:form>
+
+
+                </div>
+                <!--                    <script type="text/javascript">
+                                        document.getElementById("entityHeaderForm:entity_from_select").setAttribute("placeholder","От:");
+                                        document.getElementById("entityHeaderForm:entity_to_select").setAttribute("placeholder","Кому:");
+                                    </script>-->
+            </h:form>
+        </div>
+    </ui:composition>
+</h:body>
+</html>
+

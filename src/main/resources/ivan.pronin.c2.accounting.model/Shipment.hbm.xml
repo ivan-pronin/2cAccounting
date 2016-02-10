@@ -1,0 +1,30 @@
+<?xml version='1.0' encoding='utf-8'?>
+<!DOCTYPE hibernate-mapping PUBLIC
+    "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+    "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+
+    <class name="ivan.pronin.c2.accounting.model.Shipment" table="shipment" schema="2c_accounting">
+        <id name="id">
+            <column name="id" sql-type="bigint(20)"/>
+        </id>
+        <property name="senderId">
+            <column name="sender_id" sql-type="bigint(20)"/>
+        </property>
+        <property name="recieverId">
+            <column name="reciever_id" sql-type="bigint(20)"/>
+        </property>
+        <property name="invoiceId">
+            <column name="invoice_id" sql-type="bigint(20)"/>
+        </property>
+        <property name="productId">
+            <column name="product_id" sql-type="bigint(20)"/>
+        </property>
+        <property name="productAmount">
+            <column name="product_amount" sql-type="bigint(20)"/>
+        </property>
+        <property name="shipmentCost">
+            <column name="shipment_cost" sql-type="decimal(20,4)" precision="20" scale="4"/>
+        </property>
+    </class>
+</hibernate-mapping>

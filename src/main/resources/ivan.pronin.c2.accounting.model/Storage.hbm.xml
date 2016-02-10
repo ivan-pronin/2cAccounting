@@ -1,0 +1,18 @@
+<?xml version='1.0' encoding='utf-8'?>
+<!DOCTYPE hibernate-mapping PUBLIC
+    "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+    "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+
+    <class name="ivan.pronin.c2.accounting.model.Storage" table="storage" schema="2c_accounting">
+        <id name="id">
+            <column name="id" sql-type="bigint(20)"/>
+        </id>
+        <property name="productId">
+            <column name="product_id" sql-type="bigint(20)"/>
+        </property>
+        <property name="productAmount">
+            <column name="product_amount" sql-type="decimal(20,4)" precision="20" scale="4"/>
+        </property>
+    </class>
+</hibernate-mapping>
