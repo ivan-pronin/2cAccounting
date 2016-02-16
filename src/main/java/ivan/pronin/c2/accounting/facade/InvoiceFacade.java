@@ -24,6 +24,7 @@ public class InvoiceFacade {
     @Autowired
     private InvoiceDAO invoiceDAO;
 
+    private Invoice invoice = new Invoice();
 
     public InvoiceDAO getInvoiceDAO() {
         return invoiceDAO;
@@ -42,8 +43,6 @@ public class InvoiceFacade {
 
         this.invoiceDAO = invoiceDAO;
     }
-
-    private Invoice invoice = new Invoice();
 
     public void submit()
     {

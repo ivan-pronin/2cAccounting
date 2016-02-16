@@ -25,7 +25,7 @@ public class Invoice {
     }
 
     public void setId(Long id) {
-        this.id = id;
+        this.id = this.id;
     }
 
     public Long getNumber() {

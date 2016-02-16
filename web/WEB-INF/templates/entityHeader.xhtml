@@ -26,26 +26,65 @@
                         <f:selectItems value="#{organizationDAOImpl.getAll()}"/>
                     </h:selectOneMenu>
 
+                    <h:selectOneMenu id="entity_to_select2" title="Получатель2">
+                        <f:selectItem itemLabel="Получатель2:" itemValue="Получатель2:"/>
+                        <f:selectItems value="#{organizationDAOImpl.getAll()}"/>
+                    </h:selectOneMenu>
+
+                    <h:selectOneMenu id="entity_to_select3" title="Получатель3"
+                                     value="#{testFacade.text}">
+                        <f:selectItem itemLabel="Получатель3:" itemValue="Получатель3:"/>
+                        <f:selectItems value="#{organizationDAOImpl.getAll()}"/>
+
+                    </h:selectOneMenu>
+
                     <p:inputText id="entity_date" value="Дата:" onclick="this.value='';"/>
                     <p:inputText id="entity_number" value="Номер:" onclick="this.value='';"/>
-                </div>
 
-                <div class="authorization">
-                    <h:form>
-                        <p:inputText id="entity_input_data1" value="#{invoiceFacade.invoice.number}" onclick="this.value='';"/>
-                        <p:commandButton id="btnSubmitData" value="Сохранить" styleClass="button" action="#{invoiceFacade.submit}">
-                        </p:commandButton>
-                    </h:form>
+                    <h:inputText id="inv_id" value="#{testFacade.id}"/>
 
+                    <h:commandButton id="btnSubmit22" value="btnSubmit22" styleClass="link"  type="submit"/>
 
                 </div>
-                <!--                    <script type="text/javascript">
-                                        document.getElementById("entityHeaderForm:entity_from_select").setAttribute("placeholder","От:");
-                                        document.getElementById("entityHeaderForm:entity_to_select").setAttribute("placeholder","Кому:");
-                                    </script>-->
+
+                <script type="text/javascript">
+                    document.getElementById("entityHeaderForm:entity_from_select").setAttribute("placeholder", "От:");
+                    document.getElementById("entityHeaderForm:entity_to_select").setAttribute("placeholder", "Кому:");
+                </script>
             </h:form>
         </div>
+
+        <div>
+            <h:form>
+
+
+                <p:commandButton id="btnSubmi122" value="4445" styleClass="button"
+                                 actionListener="#{invoiceFacade.submit}"/>
+                <p:commandButton id="btnSubmit2r23ata3" value="66665" styleClass="button"
+                                 actionListener="#{nameBean.processAction}"/>
+                <h:commandButton id="btnSubmi123123122" value="@@@@@4445" styleClass="button"
+                                 actionListener="#{nameBean.processAction}"/>
+
+            </h:form>
+
+
+        </div>
+
+
     </ui:composition>
 </h:body>
 </html>
 
+<!--<h:inputText id="inv_id" value="#{testFacade.id}" valueChangeListener="#{testFacade.p2}"/>-->
+        <!--
+
+        <div class="authorization">
+        <h:form>
+            <p:inputText id="entity_input_data1" value="#{invoiceFacade.invoice.number}" onclick="this.value='';"/>
+            <p:commandButton id="btnSubmitData" value="Сохранить" styleClass="button" action="#{invoiceFacade.submit}"/>
+            <p:commandButton id="btnSubmitData2" value="ActLi2" styleClass="button" actionListener="#{invoiceFacade.submit}"/>
+            <p:commandButton id="btnSubmitData3" value="ActLi3" styleClass="button" actionListener="#{nameBean.processAction}"/>
+        </h:form>
+
+
+        </div>-->

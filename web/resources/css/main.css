@@ -129,6 +129,8 @@ body {
 .box-sh h1 {float: left; color: #7f7f7f; font-size: 30px; margin-left: 39px; margin-top: 28px;}
 .box-sh a {margin-top: 25px; float: right; background: #d5c39d; padding: 10px 15px 10px 15px; border-radius: 5px; margin-left: 6px; font-size: 14px; color: #fff; text-decoration: none;}
 
+.invoice_edit_form {width: 100%;}
+
 .item { height:100%; width: 340px; padding-top: 18px; padding-bottom: 18px; overflow: hidden; border: 1px solid #e5e5e5; border-radius: 5px; margin-left: 15px; margin-top: 20px; float: left; }
 .item img {float: left; margin-right: 20px; margin-left: 19px;}
 .item .info {overflow: hidden;}
