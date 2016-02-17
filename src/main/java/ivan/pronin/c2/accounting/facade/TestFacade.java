@@ -9,6 +9,7 @@ import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
 import javax.faces.event.AbortProcessingException;
 import javax.faces.event.ValueChangeEvent;
+import javax.xml.transform.sax.SAXSource;
 import java.io.Serializable;
 
 /**
@@ -25,12 +26,23 @@ public class TestFacade implements Serializable {
 
     private String text;
 
+    private String field;
+
+    public String getField() {
+        return field;
+    }
+
+    public void setField(String field) {
+        System.err.println(" >> Setting Field >> " + field);
+        this.field = field;
+    }
+
     public String getText() {
         return text;
     }
 
     public void setText(String text) {
-        System.err.println(" >> Setting TEXT >> " + text);
+
         this.text = text;
     }
 
@@ -41,8 +53,15 @@ public class TestFacade implements Serializable {
     public void setId(Long id)
     {
         System.err.println(" >> Setting id >> " + id);
-        invoice.setId(id);
+        this.id = id;
     }
+
+    public void submitForm()
+    {
+        System.out.println(">.>.> Submitting form with the values: ");
+        System.out.println("id: " + id + " | text: " + text + " | field: " + field);
+    }
+
 
 /*    public void processValueChange(ValueChangeEvent event)
             throws AbortProcessingException {
