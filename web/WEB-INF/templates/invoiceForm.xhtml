@@ -1,5 +1,6 @@
 <?xml version='1.0' encoding='UTF-8' ?>
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:h="http://java.sun.com/jsf/html"
       xmlns:ui="http://java.sun.com/jsf/facelets"
@@ -11,49 +12,50 @@
 <h:body>
 
     <ui:composition>
+        <div id="formContainer">
+            <h:form id="form1">
+                <p:dataTable value="Header">
+                    <p:column ><h:outputLabel for="productName" value="Наименование" /></p:column>
+                    <p:column> <h:outputLabel for="productPrice" value="Цена, руб"/></p:column>
+                    <p:column><h:outputLabel for="productAmount" value="Количество"/></p:column>
+                    <p:column> <h:outputLabel for="productCost" value="Стоимость"/></p:column>
+                    <p:column><h:outputLabel for="ndsCost" value="Ст-сть НДС"/></p:column>
+                    <p:column> <h:outputLabel for="totalCost" value="Итого с НДС"/></p:column>
+                </p:dataTable>
+                <p:dataTable value="#{invoiceFacade.invoiceBodyList}" var="invoiceBodyItem" id="dtable1" resizableColumns="true">
+                    <p:column>
 
-        <div class="invoice_edit_form">
-            <h:form >
-                <h:outputLabel for="productName" value="Наименование" />
-                <h:outputLabel for="productPrice" value="Цена, руб" />
-                <h:outputLabel for="productAmount" value="Количество" />
+                        <h:inputText id="productName" value="invoiceBodyItem.productName" onchange="submit()"/>
+                    </p:column>
+                    <p:column>
 
-                <h:outputLabel for="productCost" value="Стоимость" />
-                <h:outputLabel for="ndsCost" value="Ст-сть НДС" />
-                <h:outputLabel for="totalCost" value="Итого с НДС" />
+                        <h:inputText id="productPrice" value="#{invoiceBodyItem.productPrice}" onchange="submit()"/>
+                    </p:column>
+                    <p:column>
 
-                <h:inputText id="productName" value="#{testFacade.field}" onchange="submit()"/>
-                <p:inputText id="productPrice" value="eeeee" size="10"/>
-                <p:inputText id="productAmount" value="{bean.productAmount}" label="productAmount" size="10"/>
+                        <h:inputText id="productAmount" value="#{invoiceBodyItem.productAmount}" onchange="submit()"/>
+                    </p:column>
 
-                <p:inputText id="productCost" value="{bean.productCost}" label="productCost" size="10"/>
-                <p:inputText id="ndsCost" value="{bean.ndsCost}" label="ndsCost" size="10"/>
-                <p:inputText id="totalCost" value="{bean.totalCost}" label="totalCost" size="10"/>
-                <p:commandButton id="save_btn221" value="Сохранить2" icon="ui-icon-check" onclick="submit()" actionListener="#{testFacade.submitForm}"/>
-            </h:form >
+                    <p:column>
 
-        </div>
-        <div>
-            <h:form >
-                <p:inputText id="productName2" value="#{testFacade.field}" onchange="submit()" label="productName" size="10"/>
-                <p:commandButton id="save_btn1" value="Сохранить" icon="ui-icon-check" onclick="submit()" actionListener="#{testFacade.submitForm}"/>
-                <p:commandButton value="Отмена" icon="ui-icon-close"/>
+                        <h:inputText id="productCost" value="#{invoiceBodyItem.productCost}" onchange="submit()"/>
+                    </p:column>
+                    <p:column>
+
+                        <h:inputText id="ndsCost" value="#{invoiceBodyItem.ndsCost}" onchange="submit()"/>
+                    </p:column>
+                    <p:column>
+
+                        <h:inputText id="totalCost" value="#{invoiceBodyItem.totalCost}" onchange="submit()"/>
+                    </p:column>
+                </p:dataTable>
+                <h:commandButton value="Add" action="#{invoiceFacade.addInvoiceItemRow}"/>
+                <h:commandButton value="Сохранить" icon="ui-icon-check" onclick="submit()"
+                                 actionListener="#{invoiceFacade.submitForm}"/>
+                <h:commandButton value="Отмена" icon="ui-icon-check" actionListener="#{invoiceFacade.clearForm}"/>
             </h:form>
         </div>
-
-        <!--<div class="clear"></div>-->
     </ui:composition>
 </h:body>
 </html>
 
-<!--
-
-<div class="authorization">
-<h:form>
-    <p:inputText id="entity_input_data1" value="#{invoiceFacade.invoice.number}" onclick="this.value='';"/>
-    <p:commandButton id="btnSubmitData" value="Сохранить" styleClass="button" action="#{invoiceFacade.submit}"/>
-    <p:commandButton id="btnSubmitData2" value="ActLi2" styleClass="button" actionListener="#{invoiceFacade.submit}"/>
-</h:form>
-
-
-</div>-->
