@@ -1,8 +1,12 @@
 package ivan.pronin.c2.accounting.facade;
 
+import ivan.pronin.c2.accounting.dao.interfaces.InvoiceDAO;
+import ivan.pronin.c2.accounting.dao.interfaces.ProductDAO;
 import ivan.pronin.c2.accounting.model.Invoice;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
+import org.springframework.transaction.annotation.Transactional;
 
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
@@ -15,69 +19,19 @@ import java.io.Serializable;
 /**
  * Created by Администратор on 16.02.2016.
  */
-//@Component
-@ManagedBean(name="testFacade")
+@Component
 @SessionScoped
 public class TestFacade implements Serializable {
 
-    private Invoice invoice = new Invoice();
+    @Autowired
+    private InvoiceDAO invoiceDAO;
 
-    private Long id;
+    @Autowired
+    private ProductDAO productDAO;
 
-    private String text;
-
-    private String field;
-
-    public String getField() {
-        return field;
-    }
-
-    public void setField(String field) {
-        System.err.println(" >> Setting Field >> " + field);
-        this.field = field;
-    }
-
-    public String getText() {
-        return text;
-    }
-
-    public void setText(String text) {
-
-        this.text = text;
-    }
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id)
-    {
-        System.err.println(" >> Setting id >> " + id);
-        this.id = id;
-    }
-
-    public void submitForm()
-    {
-        System.out.println(">.>.> Submitting form with the values: ");
-        System.out.println("id: " + id + " | text: " + text + " | field: " + field);
-    }
-
-
-/*    public void processValueChange(ValueChangeEvent event)
-            throws AbortProcessingException {
-        if (null != event.getNewValue()) {
-            FacesContext.getCurrentInstance().getExternalContext().
-                    getSessionMap().put("name", event.getNewValue());
-            System.err.println(" >>>> processValueChange: " + event.getNewValue());
-        }
-    }*/
-
-    public void p2(ValueChangeEvent event)
-            throws AbortProcessingException {
-        if (null != event.getNewValue()) {
-            FacesContext.getCurrentInstance().getExternalContext().
-                    getSessionMap().put("name", event.getNewValue());
-            System.err.println(" >>>> processValueChange: " + event.getNewValue());
-        }
+    @Transactional
+    public void testGetList(){
+        System.out.println(productDAO.getProductById(1));
+        System.out.println(productDAO.getProductIdByName("Вилка"));
     }
 }

@@ -20,12 +20,31 @@ public class Invoice {
     private BigDecimal ndsCost;
     private BigDecimal totalCost;
 
+    public Invoice() {
+    }
+
+    public Invoice(Long number, Timestamp date, Long senderId, Long recieverId, Long productId, Long productAmount,
+                   BigDecimal productPrice, BigDecimal productCost, Long ndsId, BigDecimal ndsCost, BigDecimal
+                           totalCost) {
+        this.number = number;
+        this.date = date;
+        this.senderId = senderId;
+        this.recieverId = recieverId;
+        this.productId = productId;
+        this.productAmount = productAmount;
+        this.productPrice = productPrice;
+        this.productCost = productCost;
+        this.ndsId = ndsId;
+        this.ndsCost = ndsCost;
+        this.totalCost = totalCost;
+    }
+
     public Long getId() {
         return id;
     }
 
     public void setId(Long id) {
-        this.id = this.id;
+        this.id = id;
     }
 
     public Long getNumber() {

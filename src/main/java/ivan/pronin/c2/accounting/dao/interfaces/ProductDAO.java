@@ -10,6 +10,10 @@ import java.util.List;
 public interface ProductDAO {
 
     List<Product> getAll();
-    Product get(String name);
-    Product get(int id);
+
+    Product getProductByName(String name);
+
+    Product getProductById(long id);
+
+    Long getProductIdByName(String name);
 }

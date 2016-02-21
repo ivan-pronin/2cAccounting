@@ -10,7 +10,8 @@ import java.util.List;
 public interface InvoiceDAO {
 
     List<Invoice> getAll();
-    Invoice get(int senderId, int recieverId);
-    Invoice get(int number);
-    void testRecordData(Invoice invoice);
+
+    List<Invoice> getInvoiceBySenderRecieverId(int senderId, int recieverId);
+
+    List<Invoice> getInvoiceByNumber(long number);
 }

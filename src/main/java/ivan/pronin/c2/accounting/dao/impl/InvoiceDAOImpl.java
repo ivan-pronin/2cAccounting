@@ -1,18 +1,16 @@
 package ivan.pronin.c2.accounting.dao.impl;
 
+import ivan.pronin.c2.accounting.dao.criteria.CriteriaFactory;
 import ivan.pronin.c2.accounting.dao.interfaces.InvoiceDAO;
 import ivan.pronin.c2.accounting.model.Invoice;
 import org.hibernate.Criteria;
 import org.hibernate.SessionFactory;
-import org.hibernate.criterion.DetachedCriteria;
-import org.hibernate.criterion.Order;
-import org.hibernate.criterion.ProjectionList;
-import org.hibernate.criterion.Projections;
-import org.hibernate.transform.Transformers;
+import org.hibernate.criterion.Restrictions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.Collections;
 import java.util.List;
 
 /**
@@ -22,64 +20,50 @@ import java.util.List;
 public class InvoiceDAOImpl implements InvoiceDAO {
 
     @Autowired
-    private SessionFactory sessionFactory;
-
-    private ProjectionList projectionList;
+    private CriteriaFactory criteriaFactory;
 
     private List<Invoice> products;
 
     public InvoiceDAOImpl() {
-        projectionList = Projections.projectionList();
-        projectionList.add(Projections.property("id"), "id");
-        projectionList.add(Projections.property("sender_id"), "sender_id");
-        projectionList.add(Projections.property("reciever_id"), "reciever_id");
-        projectionList.add(Projections.property("number"), "number");
-        projectionList.add(Projections.property("date"), "date");
     }
 
     @Transactional
+    @Override
     public List<Invoice> getAll() {
-        DetachedCriteria criteria = DetachedCriteria.forClass(Invoice.class, "b");
-        createAliases(criteria);
-
-        List<Invoice> invoices = createInvoiceList(criteria);
-        for (Invoice i :
-                invoices) {
+        Criteria criteria = getCriteria();
+        List<Invoice> invoices = criteria.list();
+        for (Invoice i : invoices) {
             System.out.println(i);
         }
-
         return invoices;
     }
 
-    public void testRecordData(Invoice data)
-    {
-        System.out.println("Recording data.. :> " + data);
-        System.out.println("... >> SUCCESS!!!");
+    @Transactional
+    @Override
+    public List<Invoice> getInvoiceBySenderRecieverId(int senderId, int recieverId) {
+        Criteria criteria = getCriteria().add(Restrictions.eq("sender_id", senderId)).add(Restrictions.eq
+                ("reciever_id", recieverId));
+        return getInvoicesFromResult(criteria);
     }
 
-    public Invoice get(int senderId, int recieverId) {
-        return null;
+    @Transactional
+    @Override
+    public List<Invoice> getInvoiceByNumber(long number) {
+        Criteria criteria = getCriteria().add(Restrictions.eq("number", number));
+        return getInvoicesFromResult(criteria);
     }
 
-    public Invoice get(int number) {
-        return null;
+    private List<Invoice> getInvoicesFromResult(Criteria criteria) {
+        List<Invoice> result = criteria.list();
+        if (result.isEmpty()) {
+            System.err.println("No invoices were found");
+            return Collections.emptyList();
+        } else {
+            return result;
+        }
     }
 
-    private List<Invoice> createInvoiceList(DetachedCriteria criteria) {
-        Criteria crit = criteria.getExecutableCriteria(sessionFactory.getCurrentSession());
-        crit.addOrder(Order.desc("b.number")).setProjection(projectionList).setResultTransformer(Transformers
-                .aliasToBean(Invoice.class));
-        return crit.list();
+    private Criteria getCriteria() {
+        return criteriaFactory.getCriteria(Invoice.class);
     }
-
-    private void createAliases(DetachedCriteria criteria) {
-        /*criteria.createAlias("b.id", "id");*/
-        // criteria.createAlias("b.number", "number");
-        //criteria.createAlias("b.date", "date");
-    }
-
-    public int getPrice(String name) {
-        return 0;
-    }
-
 }

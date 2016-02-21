@@ -14,9 +14,11 @@
         <p:tabView>
             <p:tab title="Приходные ТТН" id="incoming_ttn">
                 <h:form>
-                    <p:dataTable value="#{invoiceFacade.inInvoiceBodyList}" var="invoiceBodyItem" id="incoming_ttn_invoice_table">
+                    <p:dataTable value="#{invoiceFacade.inInvoiceBodyList}" var="invoiceBodyItem"
+                                 id="incoming_ttn_invoice_table">
                         <p:column headerText="Наименование">
-                            <p:inputText id="incoming_ttn_productName" value="#{invoiceBodyItem.productName}" size="10"/>
+                            <p:inputText id="incoming_ttn_productName" value="#{invoiceBodyItem.productName}"
+                                         size="10"/>
                         </p:column>
                         <p:column headerText="Цена">
                             <p:inputText id="incoming_ttn_productPrice" value="#{invoiceBodyItem.productPrice}"
@@ -37,20 +39,22 @@
                             <p:inputText id="incoming_ttn_totalCost" value="#{invoiceBodyItem.totalCost}" size="10"/>
                         </p:column>
                     </p:dataTable>
-                        <p:commandButton id="incoming_ttn_addButton" icon="ui-icon-plus" value="Добавить строку"
-                                         action="#{invoiceFacade.addInInvoiceItemRow}"/>
-                        <p:commandButton id="incoming_ttn_saveButton" value="Сохранить" icon="ui-icon-check"
-                                         action="#{invoiceFacade.submitInInvoiceForm}"/>
-                        <p:commandButton id="incoming_ttn_cancelButton" value="Отмена" icon="ui-icon-check"
-                                         action="#{invoiceFacade.clearInForm}"/>
+                    <p:commandButton id="incoming_ttn_addButton" icon="ui-icon-plus" value="Добавить строку"
+                                     action="#{invoiceFacade.addInInvoiceItemRow}"/>
+                    <p:commandButton id="incoming_ttn_saveButton" value="Сохранить" icon="ui-icon-check"
+                                     action="#{invoiceFacade.submitInInvoiceForm}"/>
+                    <p:commandButton id="incoming_ttn_cancelButton" value="Отмена" icon="ui-icon-check"
+                                     action="#{invoiceFacade.clearInForm}"/>
                 </h:form>
             </p:tab>
 
             <p:tab title="Расходные ТТН" id="outgoing_ttn">
                 <h:form>
-                    <p:dataTable value="#{invoiceFacade.outInvoiceBodyList}" var="invoiceBodyItem" id="outgoing_ttn_invoice_table">
+                    <p:dataTable value="#{invoiceFacade.outInvoiceBodyList}" var="invoiceBodyItem"
+                                 id="outgoing_ttn_invoice_table">
                         <p:column headerText="Наименование">
-                            <p:inputText id="outgoing_ttn_productName" value="#{invoiceBodyItem.productName}" size="10"/>
+                            <p:inputText id="outgoing_ttn_productName" value="#{invoiceBodyItem.productName}"
+                                         size="10"/>
                         </p:column>
                         <p:column headerText="Цена">
                             <p:inputText id="outgoing_ttn_productPrice" value="#{invoiceBodyItem.productPrice}"
@@ -77,6 +81,13 @@
                                      action="#{invoiceFacade.submitOutInvoiceForm}"/>
                     <p:commandButton id="outgoing_ttn_cancelButton" value="Отмена" icon="ui-icon-check"
                                      action="#{invoiceFacade.clearOutForm}"/>
+                </h:form>
+            </p:tab>
+
+            <p:tab title="Test TAB">
+                <h:form>
+                    <p:commandButton id="testButton" icon="ui-check-plus" value="TEST BUTTON!"
+                                     action="#{testFacade.testGetList}"/>
                 </h:form>
             </p:tab>
         </p:tabView>

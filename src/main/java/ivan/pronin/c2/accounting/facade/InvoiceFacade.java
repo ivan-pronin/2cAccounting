@@ -1,10 +1,16 @@
 package ivan.pronin.c2.accounting.facade;
 
+import ivan.pronin.c2.accounting.model.Invoice;
 import ivan.pronin.c2.accounting.model.block.HeaderData;
 import ivan.pronin.c2.accounting.model.block.InvoiceBody;
+import org.hibernate.Session;
+import org.hibernate.SessionFactory;
+import org.hibernate.Transaction;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 
+import javax.faces.bean.SessionScoped;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
@@ -13,8 +19,14 @@ import java.util.List;
  * Created by Администратор on 10.02.2016.
  */
 @Component
-@Scope("singleton")
+@SessionScoped
 public class InvoiceFacade implements Serializable {
+
+    @Autowired
+    private SessionFactory sessionFactory;
+
+    private List<Invoice> inInvoices;
+    private List<Invoice> outInvoices;
 
     private List<HeaderData> inHeaderDataList;
     private List<InvoiceBody> inInvoiceBodyList;
@@ -65,6 +77,10 @@ public class InvoiceFacade implements Serializable {
         for (InvoiceBody item : inInvoiceBodyList) {
             System.out.println("Printing item: " + item);
         }
+/*        Session session = sessionFactory.getCurrentSession();
+        Transaction transaction = session.beginTransaction();
+        session.save();
+        transaction.commit();*/
     }
 
     public void submitOutInvoiceForm() {
