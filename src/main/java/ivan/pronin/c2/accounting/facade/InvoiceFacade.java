@@ -5,8 +5,6 @@ import ivan.pronin.c2.accounting.model.block.InvoiceBody;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 
-import javax.faces.bean.ManagedBean;
-import javax.faces.bean.SessionScoped;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
@@ -16,47 +14,76 @@ import java.util.List;
  */
 @Component
 @Scope("singleton")
-//@ManagedBean(name = "invoiceFacade")
-//@SessionScoped
 public class InvoiceFacade implements Serializable {
 
-    private List<HeaderData> headerDataList;
-    private List<InvoiceBody> invoiceBodyList;
+    private List<HeaderData> inHeaderDataList;
+    private List<InvoiceBody> inInvoiceBodyList;
+    private List<HeaderData> outHeaderDataList;
+    private List<InvoiceBody> outInvoiceBodyList;
 
     private HeaderData headerDataItem;
     private InvoiceBody invoiceBodyItem;
 
     public InvoiceFacade() {
-        headerDataList = new ArrayList<>();
-        invoiceBodyList = new ArrayList<>();
+        inHeaderDataList = new ArrayList<>();
+
+        inInvoiceBodyList = new ArrayList<>();
+        outHeaderDataList = new ArrayList<>();
+        outInvoiceBodyList = new ArrayList<>();
+
         headerDataItem = new HeaderData();
         invoiceBodyItem = new InvoiceBody();
-        headerDataList.add(headerDataItem);
-        invoiceBodyList.add(invoiceBodyItem);
+        inHeaderDataList.add(headerDataItem);
+        inInvoiceBodyList.add(invoiceBodyItem);
+        outHeaderDataList.add(headerDataItem);
+        outInvoiceBodyList.add(invoiceBodyItem);
     }
 
-    public List<HeaderData> getHeaderDataList() {
-        return headerDataList;
+    public List<HeaderData> getInHeaderDataList() {
+        return inHeaderDataList;
     }
 
-    public List<InvoiceBody> getInvoiceBodyList() {
-        return invoiceBodyList;
+    public List<InvoiceBody> getInInvoiceBodyList() {
+        return inInvoiceBodyList;
     }
 
-    public void addInvoiceItemRow() {
+    public List<HeaderData> getOutHeaderDataList() { return outHeaderDataList; }
+
+    public List<InvoiceBody> getOutInvoiceBodyList() { return outInvoiceBodyList; }
+
+    public void addInInvoiceItemRow() {
         invoiceBodyItem = new InvoiceBody();
-        invoiceBodyList.add(invoiceBodyItem);
+        inInvoiceBodyList.add(invoiceBodyItem);
     }
 
-    public void submitForm() {
-        for (InvoiceBody item : invoiceBodyList) {
+    public void addOutInvoiceItemRow() {
+        invoiceBodyItem = new InvoiceBody();
+        outInvoiceBodyList.add(invoiceBodyItem);
+    }
+
+    public void submitInInvoiceForm() {
+        for (InvoiceBody item : inInvoiceBodyList) {
             System.out.println("Printing item: " + item);
         }
     }
 
-    public void clearForm() {
-        System.out.println("Clearing the form ...");
-        headerDataList.clear();
-        invoiceBodyList.clear();
+    public void submitOutInvoiceForm() {
+        for (InvoiceBody item : outInvoiceBodyList) {
+            System.out.println("Printing item: " + item);
+        }
+    }
+
+    public void clearInForm() {
+        System.out.println("Clearing the In forms ...");
+        inHeaderDataList.clear();
+        inInvoiceBodyList.clear();
+        addInInvoiceItemRow();
+    }
+
+    public void clearOutForm() {
+        System.out.println("Clearing the Out forms ...");
+        outHeaderDataList.clear();
+        outInvoiceBodyList.clear();
+        addOutInvoiceItemRow();
     }
 }

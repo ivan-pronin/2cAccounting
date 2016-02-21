@@ -7,18 +7,16 @@ a {
     -webkit-border-radius:10px;
     border-radius:10px;
 }
+
+.hui2 {
+
+}
 /** jQuery UI CSS Framework @VERSION** Copyright 2010, AUTHORS.txt (http://jqueryui.com/about)* Dual licensed under the MIT or GPL Version 2 licenses.* http://jquery.org/license** http://docs.jquery.com/UI/Theming/API** To view and modify this theme, visit http://jqueryui.com/themeroller/?ffDefault=Arial,sans-serif&fwDefault=bold&fsDefault=1.1em&cornerRadius=3px&bgColorHeader=c4c4c4&bgTextureHeader=03_highlight_soft.png&bgImgOpacityHeader=100&borderColorHeader=a8a8a8&fcHeader=4f4f4f&iconColorHeader=898989&bgColorContent=ffffff&bgTextureContent=01_flat.png&bgImgOpacityContent=100&borderColorContent=a8a8a8&fcContent=4f4f4f&iconColorContent=616161&bgColorDefault=c4c4c4&bgTextureDefault=04_highlight_hard.png&bgImgOpacityDefault=80&borderColorDefault=a8a8a8&fcDefault=4f4f4f&iconColorDefault=ffffff&bgColorHover=c4c4c4&bgTextureHover=04_highlight_hard.png&bgImgOpacityHover=80&borderColorHover=a8a8a8&fcHover=4f4f4f&iconColorHover=ffffff&bgColorActive=c4c4c4&bgTextureActive=06_inset_hard.png&bgImgOpacityActive=65&borderColorActive=aaaaaa&fcActive=4f4f4f&iconColorActive=ffffff&bgColorHighlight=fbf9ee&bgTextureHighlight=02_glass.png&bgImgOpacityHighlight=55&borderColorHighlight=fcefa1&fcHighlight=363636&iconColorHighlight=2e83ff&bgColorError=fef1ec&bgTextureError=05_inset_soft.png&bgImgOpacityError=95&borderColorError=cd0a0a&fcError=cd0a0a&iconColorError=cd0a0a&bgColorOverlay=aaaaaa&bgTextureOverlay=01_flat.png&bgImgOpacityOverlay=0&opacityOverlay=30&bgColorShadow=4f4f4f&bgTextureShadow=01_flat.png&bgImgOpacityShadow=0&opacityShadow=30&thicknessShadow=8px&offsetTopShadow=-8px&offsetLeftShadow=-8px&cornerRadiusShadow=8px*/
 /* Component containers----------------------------------*/
-.ui-widget {
-    font-family:Arial,sans-serif;
-    font-size:1.1em;
-}
-.ui-widget .ui-widget {
-    font-size:1em;
-}
+
 .ui-widget input, .ui-widget select, .ui-widget textarea, .ui-widget button {
     font-family:Arial,sans-serif;
-    font-size:1em;
+
 }
 .ui-widget-content {
     border:1px solid #a8a8a8;

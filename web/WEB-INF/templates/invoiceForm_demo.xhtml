@@ -12,36 +12,50 @@
 
     <ui:composition>
 
-        <div class="invoice_edit_form">
-            <h:form >
-                <h:outputLabel for="productName" value="Наименование" />
-                <h:outputLabel for="productPrice" value="Цена, руб" />
-                <h:outputLabel for="productAmount" value="Количество" />
+        <p:tabView>
+            <p:tab title="Приходные ТТН" id="incoming_ttn">
+                <h:form>
+                    <p:dataTable value="#{invoiceFacade.invoiceBodyList}" var="invoiceBodyItem" id="dtable2">
+                        <p:column headerText="Наименование">
+                            <p:inputText id="incoming_ttn_productName" value="#{invoiceBodyItem.productName}" size="10"/>
+                        </p:column>
+                        <p:column headerText="Цена">
+                            <p:inputText id="incoming_ttn_productPrice" value="#{invoiceBodyItem.productPrice}"
+                                         size="10"/>
+                        </p:column>
+                        <p:column headerText="Количество">
+                            <p:inputText id="incoming_ttn_productAmount" value="#{invoiceBodyItem.productAmount}"
+                                         size="10"/>
+                        </p:column>
+                        <p:column headerText="Стоимость">
+                            <p:inputText id="incoming_ttn_productCost" value="#{invoiceBodyItem.productCost}"
+                                         size="10"/>
+                        </p:column>
+                        <p:column headerText="Ст-сть НДС">
+                            <p:inputText id="incoming_ttn_ndsCost" value="#{invoiceBodyItem.ndsCost}" size="10"/>
+                        </p:column>
+                        <p:column headerText="Итого">
+                            <p:inputText id="incoming_ttn_totalCost" value="#{invoiceBodyItem.totalCost}" size="10"/>
+                        </p:column>
+                    </p:dataTable>
+                    <p:commandButton id="incoming_ttn_addButton" icon="ui-icon-plus" value="Добавить строку"
+                                     action="#{invoiceFacade.addInvoiceItemRow}"/>
+                    <p:commandButton id="incoming_ttn_saveButton" value="Сохранить" icon="ui-icon-check"
+                                     action="#{invoiceFacade.submitForm}"/>
+                    <p:commandButton id="incoming_ttn_cancelButton" value="Отмена" icon="ui-icon-check"
+                                     action="#{invoiceFacade.clearForm}"/>
 
-                <h:outputLabel for="productCost" value="Стоимость" />
-                <h:outputLabel for="ndsCost" value="Ст-сть НДС" />
-                <h:outputLabel for="totalCost" value="Итого с НДС" />
+                </h:form>
+            </p:tab>
 
-                <h:inputText id="productName" value="#{testFacade.field}" onchange="submit()"/>
-                <p:inputText id="productPrice" value="eeeee" size="10"/>
-                <p:inputText id="productAmount" value="{bean.productAmount}" label="productAmount" size="10"/>
+            <p:tab title="tab2">
+                <p:dataTable value="Header">
+                <p:column headerText="Наименование">
+                    <p:inputText id="incoming_ttn_productName2" value="{invoiceBodyItem.productName}" size="10"/>
+                </p:column>
+            </p:tab>
+        </p:tabView>
 
-                <p:inputText id="productCost" value="{bean.productCost}" label="productCost" size="10"/>
-                <p:inputText id="ndsCost" value="{bean.ndsCost}" label="ndsCost" size="10"/>
-                <p:inputText id="totalCost" value="{bean.totalCost}" label="totalCost" size="10"/>
-                <p:commandButton id="save_btn221" value="Сохранить2" icon="ui-icon-check" onclick="submit()" actionListener="#{testFacade.submitForm}"/>
-            </h:form >
-
-        </div>
-        <div>
-            <h:form >
-                <p:inputText id="productName2" value="#{testFacade.field}" onchange="submit()" label="productName" size="10"/>
-                <p:commandButton id="save_btn1" value="Сохранить" icon="ui-icon-check" onclick="submit()" actionListener="#{testFacade.submitForm}"/>
-                <p:commandButton value="Отмена" icon="ui-icon-close"/>
-            </h:form>
-        </div>
-
-        <!--<div class="clear"></div>-->
     </ui:composition>
 </h:body>
 </html>

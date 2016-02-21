@@ -15,23 +15,17 @@
         <div class="left-menu">
             <h:form styleClass="entityHeader" id="entityHeaderForm">
                 <div class="dropdown">
-
-                    <h:selectOneMenu id="entity_from_select" title="Отправитель">
+                    <p:selectOneMenu id="entity_from_select" title="Отправитель">
                         <f:selectItem itemLabel="Отправитель:" itemValue="Отправитель:"/>
                         <f:selectItems value="#{organizationDAOImpl.getAll()}"/>
-                    </h:selectOneMenu>
-
-                    <h:selectOneMenu id="entity_to_select" title="Получатель">
+                    </p:selectOneMenu>
+                    <p:selectOneMenu id="entity_to_select" title="Получатель">
                         <f:selectItem itemLabel="Получатель:" itemValue="Получатель:"/>
                         <f:selectItems value="#{organizationDAOImpl.getAll()}"/>
-                    </h:selectOneMenu>
-
+                    </p:selectOneMenu>
                     <p:inputText id="entity_date" value="#{testFacade.text}"  onchange="submit()" onclick="this.value='';"/>
                     <p:inputText id="entity_number" value="#{testFacade.id}"  onchange="submit()" onclick="this.value='';"/>
-
-
                 </div>
-
                 <script type="text/javascript">
                     document.getElementById("entityHeaderForm:entity_from_select").setAttribute("placeholder", "От:");
                     document.getElementById("entityHeaderForm:entity_to_select").setAttribute("placeholder", "Кому:");
@@ -40,7 +34,6 @@
                 </script>
             </h:form>
         </div>
-
     </ui:composition>
 </h:body>
 </html>

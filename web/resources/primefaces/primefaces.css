@@ -713,7 +713,7 @@ ui-overlay-visible * {
 }
 .ui-datatable table {
     border-collapse:collapse;
-    width:100%;
+    width: 100%;
 }
 .ui-datatable .ui-datatable-header,.ui-datatable .ui-datatable-footer {
     text-align:center;
@@ -1540,7 +1540,6 @@ div.ui-button, .ui-splitbutton {
 .ui-menu .ui-widget-header h1,.ui-menu .ui-widget-header h2,.ui-menu .ui-widget-header h3,.ui-menu .ui-widget-header h4,.ui-menu .ui-widget-header h5,.ui-menu .ui-widget-header h6 {
     float:left;
     display:block;
-    font-size:1em;
     margin:0 auto;
     padding:0.3em 3%;
 }

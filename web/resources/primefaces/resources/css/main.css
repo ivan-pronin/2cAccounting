@@ -37,7 +37,7 @@ body {
 
 #wrap {
     position: relative;
-    width: 940px;
+    width: 1200px;
     margin: 0 auto;
     min-height: 100%;
     height: auto !important;
@@ -123,6 +123,8 @@ body {
 .left-menu a {margin-top:5px; padding: 9px 0px 9px 24px; display: block; color: #7f7f7f;}
 .left-menu a:hover {background: #e9f6fc;}
 .left-menu a.selected_link {background: #e9f6fc;}
+
+.invoice_edit_form {width: 90%;}
 
 .right-content { float: left; border-left: 1px solid #e5e5e5; width: 759px; min-height: 925px; padding-bottom: 34px;}
 .box-sh {padding-right: 40px; overflow: hidden; }
