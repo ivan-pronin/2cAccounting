@@ -1,11 +1,11 @@
 package ivan.pronin.c2.accounting.dao.impl;
 
+import ivan.pronin.c2.accounting.dao.criteria.CriteriaFactory;
 import ivan.pronin.c2.accounting.dao.interfaces.OrganizationDAO;
 import ivan.pronin.c2.accounting.model.Organization;
-import ivan.pronin.c2.accounting.model.Product;
 import org.hibernate.Criteria;
-import org.hibernate.Session;
-import org.hibernate.SessionFactory;
+import org.hibernate.criterion.MatchMode;
+import org.hibernate.criterion.Restrictions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
@@ -19,30 +19,45 @@ import java.util.List;
 public class OrganizationDAOImpl implements OrganizationDAO {
 
     @Autowired
-    private SessionFactory sessionFactory;
-
-    private List<Organization> organizations;
+    private CriteriaFactory criteriaFactory;
 
     @Transactional
     @Override
     public List<Organization> getAll() {
-
         Criteria criteria = getCriteria();
-        organizations = (List<Organization>) criteria.list();
-        return organizations;
+        return (List<Organization>) criteria.list();
     }
 
     @Override
-    public Organization get(String name) {
-        return null;
+    public Organization getOrganizationById(long id) {
+        Criteria criteria = getCriteria().add(Restrictions.eq("id", id));
+        return getOrganizationFromResult(criteria);
     }
 
+    @Override
+    public long getIdByOrganizationName(String name) {
+        return getOrganizationByName(name).getId();
+    }
+
+    @Override
+    public Organization getOrganizationByName(String name) {
+        Criteria criteria = getCriteria().add(Restrictions.ilike("name", name, MatchMode.ANYWHERE));
+        return getOrganizationFromResult(criteria);
+    }
+
+    private Organization getOrganizationFromResult(Criteria criteria) {
+        List<Organization> result = criteria.list();
+        if (result.isEmpty()) {
+            System.err.println("No organizations were found");
+            return null;
+        } else if (result.size() > 1) {
+            System.out.println("More than 1 organization found, returning first one");
+        }
+        return result.get(0);
+    }
 
     private Criteria getCriteria() {
-        Session session = sessionFactory.getCurrentSession();
-        Criteria criteria = session.createCriteria(Organization.class);
-        criteria = criteria.setResultTransformer(Criteria.DISTINCT_ROOT_ENTITY);
-        return criteria;
+        return criteriaFactory.getCriteria(Organization.class);
     }
 
 }

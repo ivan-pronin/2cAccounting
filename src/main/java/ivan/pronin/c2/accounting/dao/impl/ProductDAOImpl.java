@@ -22,7 +22,6 @@ import java.util.List;
 @Component
 public class ProductDAOImpl implements ProductDAO {
 
-    public static final String PERCENT = "%";
     @Autowired
     private CriteriaFactory criteriaFactory;
 
@@ -31,7 +30,6 @@ public class ProductDAOImpl implements ProductDAO {
     @Transactional
     @Override
     public List<Product> getAll() {
-
         Criteria criteria = getCriteria();
         products = (List<Product>) criteria.list();
         for (Product product : products) {

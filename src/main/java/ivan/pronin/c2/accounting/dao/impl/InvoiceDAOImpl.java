@@ -22,8 +22,6 @@ public class InvoiceDAOImpl implements InvoiceDAO {
     @Autowired
     private CriteriaFactory criteriaFactory;
 
-    private List<Invoice> products;
-
     public InvoiceDAOImpl() {
     }
 

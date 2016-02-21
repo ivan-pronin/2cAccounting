@@ -12,5 +12,6 @@ import java.util.List;
 public interface IInvoiceFactory {
 
     Invoice createInvoice(HeaderData headerData, InvoiceBody invoiceBody);
+
     List<Invoice> createInvoices(List<HeaderData> headerDataList, List<InvoiceBody> invoiceBodyList);
 }

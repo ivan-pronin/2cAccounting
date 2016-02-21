@@ -11,6 +11,8 @@ public class InvoiceBody {
     private BigDecimal productPrice;
     private Long productAmount;
     private BigDecimal productCost;
+    private BigDecimal ndsCost;
+    private BigDecimal totalCost;
 
     @Override
     public String toString() {
@@ -23,9 +25,6 @@ public class InvoiceBody {
                 ", totalCost=" + totalCost +
                 '}';
     }
-
-    private BigDecimal ndsCost;
-    private BigDecimal totalCost;
 
     public String getProductName() {
         return productName;
