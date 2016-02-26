@@ -26,22 +26,10 @@ public class Invoice {
     public Invoice() {
     }
 
-    public Invoice(HeaderData headerData, InvoiceBody invoiceBody, Long productId, Long ndsId) {
+    public Invoice(HeaderData headerData, InvoiceBody invoiceBody, Long productId) {
         this(headerData.getNumber(), headerData.getDate(), headerData.getSenderId(), headerData.getRecieverId(),
                 productId, invoiceBody.getProductAmount(), invoiceBody.getProductPrice(), invoiceBody.getProductCost(),
-                ndsId, invoiceBody.getNdsCost(), invoiceBody.getTotalCost());
-         /*
-        this.number = headerData.getNumber();
-        this.date = headerData.getDate();
-        this.senderId = headerData.getSenderId();
-        this.recieverId = headerData.getRecieverId();
-        this.productId = productId;
-        this.productAmount = invoiceBody.getProductAmount();
-        this.productPrice = invoiceBody.getProductPrice();
-        this.productCost = invoiceBody.getProductCost();
-        this.ndsId = ndsId;
-        this.ndsCost = invoiceBody.getNdsCost();
-        this.totalCost = invoiceBody.getTotalCost();*/
+                headerData.getTaxRate().getId(), invoiceBody.getNdsCost(), invoiceBody.getTotalCost());
     }
 
     public Invoice(Long number, Timestamp date, Long senderId, Long recieverId, Long productId, Long productAmount,

@@ -28,17 +28,20 @@ public class OrganizationDAOImpl implements OrganizationDAO {
         return (List<Organization>) criteria.list();
     }
 
+    @Transactional
     @Override
     public Organization getOrganizationById(long id) {
         Criteria criteria = getCriteria().add(Restrictions.eq("id", id));
         return getOrganizationFromResult(criteria);
     }
 
+    @Transactional
     @Override
     public long getIdByOrganizationName(String name) {
         return getOrganizationByName(name).getId();
     }
 
+    @Transactional
     @Override
     public Organization getOrganizationByName(String name) {
         Criteria criteria = getCriteria().add(Restrictions.ilike("name", name, MatchMode.ANYWHERE));

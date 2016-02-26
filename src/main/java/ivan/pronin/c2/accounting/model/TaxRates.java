@@ -1,5 +1,7 @@
 package ivan.pronin.c2.accounting.model;
 
+import ivan.pronin.c2.accounting.model.enums.TaxType;
+
 import java.math.BigDecimal;
 
 /**
@@ -7,7 +9,7 @@ import java.math.BigDecimal;
  */
 public class TaxRates {
     private Long id;
-    private String name;
+    private TaxType name;
     private BigDecimal value;
 
     public Long getId() {
@@ -19,11 +21,11 @@ public class TaxRates {
     }
 
     public String getName() {
-        return name;
+        return name.name();
     }
 
     public void setName(String name) {
-        this.name = name;
+        this.name = TaxType.parse(name);
     }
 
     public BigDecimal getValue() {

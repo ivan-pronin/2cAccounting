@@ -23,6 +23,10 @@
                         <f:selectItem itemLabel="Получатель:" itemValue="Получатель:"/>
                         <f:selectItems value="#{organizationDAOImpl.getAll()}"/>
                     </p:selectOneMenu>
+                    <p:selectOneMenu id="taxrate_to_select" title="Налог">
+                        <f:selectItem itemLabel="Налог:" itemValue="Налог:"/>
+                        <f:selectItems value="#{taxRatesDAOImpl.getAll()}"/>
+                    </p:selectOneMenu>
                     <p:inputText id="entity_date" value="{//TODO.text}"  onchange="submit()" onclick="this.value='';"/>
                     <p:inputText id="entity_number" value="{//TODOtestFacade.id}"  onchange="submit()" onclick="this.value='';"/>
                 </div>

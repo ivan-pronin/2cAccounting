@@ -1,5 +1,7 @@
 package ivan.pronin.c2.accounting.model.block;
 
+import ivan.pronin.c2.accounting.model.TaxRates;
+
 import java.sql.Timestamp;
 
 /**
@@ -11,6 +13,15 @@ public class HeaderData {
     private Timestamp date;
     private Long senderId;
     private Long recieverId;
+    private TaxRates taxRate;
+
+    public TaxRates getTaxRate() {
+        return taxRate;
+    }
+
+    public void setTaxRate(TaxRates taxRate) {
+        this.taxRate = taxRate;
+    }
 
     public Long getNumber() {
         return number;
@@ -36,6 +47,14 @@ public class HeaderData {
         this.senderId = senderId;
     }
 
+    public Long getRecieverId() {
+        return recieverId;
+    }
+
+    public void setRecieverId(Long recieverId) {
+        this.recieverId = recieverId;
+    }
+
     @Override
     public String toString() {
         return "HeaderData{" +
@@ -44,13 +63,5 @@ public class HeaderData {
                 ", senderId=" + senderId +
                 ", recieverId=" + recieverId +
                 '}';
-    }
-
-    public Long getRecieverId() {
-        return recieverId;
-    }
-
-    public void setRecieverId(Long recieverId) {
-        this.recieverId = recieverId;
     }
 }

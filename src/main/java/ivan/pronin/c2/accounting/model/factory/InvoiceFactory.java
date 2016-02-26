@@ -1,17 +1,20 @@
 package ivan.pronin.c2.accounting.model.factory;
 
+import ivan.pronin.c2.accounting.dao.interfaces.ProductDAO;
 import ivan.pronin.c2.accounting.model.Invoice;
 import ivan.pronin.c2.accounting.model.block.HeaderData;
 import ivan.pronin.c2.accounting.model.block.InvoiceBody;
+import org.springframework.beans.factory.annotation.Autowired;
 
 import java.math.BigDecimal;
 import java.sql.Timestamp;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
  * Created by Администратор on 21.02.2016.
  */
-public class InvoiceFactory implements IInvoiceFactory{
+public class InvoiceFactory implements IInvoiceFactory {
 
     private Long id;
     private Long number;
@@ -27,26 +30,28 @@ public class InvoiceFactory implements IInvoiceFactory{
     private BigDecimal ndsCost;
     private BigDecimal totalCost;
 
+    @Autowired
+    private ProductDAO productDAO;
+
     @Override
     public Invoice createInvoice(HeaderData headerData, InvoiceBody invoiceBody) {
-       Invoice invoice = new Invoice();
-        number = headerData.getNumber();
-        date = headerData.getDate();
-        senderId = headerData.getSenderId();
-        recieverId = headerData.getRecieverId();
-
         productName = invoiceBody.getProductName();
-        productPrice = invoiceBody.getProductPrice();
-        productAmount = invoiceBody.getProductAmount();
-        productCost = invoiceBody.getProductCost();
-        ndsCost = invoiceBody.getNdsCost();
-        totalCost = invoiceBody.getTotalCost();
+        productId = productDAO.getProductIdByName(productName);
 
-        invoice = new Invoice();
+        return new Invoice(headerData, invoiceBody, productId);
     }
 
     @Override
     public List<Invoice> createInvoices(List<HeaderData> headerDataList, List<InvoiceBody> invoiceBodyList) {
-        return null;
+        final int size = headerDataList.size();
+        if (size != invoiceBodyList.size()) {
+            throw new IllegalArgumentException("Could not build Invoices due to lists size mismatch");
+        } else {
+            List<Invoice> results = new ArrayList<>();
+            for (int i = 0; i < size; i++) {
+                results.add(createInvoice(headerDataList.get(i), invoiceBodyList.get(i)));
+            }
+            return results;
+        }
     }
 }
