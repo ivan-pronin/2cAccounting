@@ -15,31 +15,33 @@
         <h:form >
             <p:dataTable value="#{invoiceFacade.inHeaderDataList}" var="headerDataItem">
                 <p:column>
-                    <p:selectOneMenu id="entity_from_select" title="Отправитель" style="width:150px;">
-                        <f:selectItem itemLabel="Отправитель:" itemValue="#{headerDataItem.number}" value="#{headerDataItem.senderName}"/>
+                    <p:selectOneMenu id="entity_from_select" value="#{headerDataItem.senderName}"
+                                     title="Отправитель" style="width:150px;">
+                        <f:selectItem itemLabel="Отправитель:" itemValue="Отправитель:"/>
                         <f:selectItems value="#{organizationDAOImpl.getAll()}"/>
                     </p:selectOneMenu>
                     <br/>
-                    <p:selectOneMenu id="taxrate_to_select"  title="Налог" style="width:150px;" value="#{headerDataItem.taxRate}" converter="#{taxRatesConverter}">
-                        <f:selectItem itemLabel="Налог:" />
-                        <f:selectItems value="#{taxRatesDAOImpl.getAll()}" var="taxRates" itemValue="#{taxRates}" itemLabel="#{taxRates.id}"/>
+                    <p:selectOneMenu id="entity_to_select" value="#{headerDataItem.recieverName}"
+                                     title="Получатель" style="width:150px;">
+                        <f:selectItem itemLabel="Получатель:" itemValue="Получатель:"/>
+                        <f:selectItems value="#{organizationDAOImpl.getAll()}"/>
                     </p:selectOneMenu>
                     <br/>
-                    <p:selectOneMenu id="number_to_select"  onchange="submit()"  title="NUMBER test" style="width:150px;" value="#{invoiceFacade.value}">
-                        <f:selectItem itemValue="name1" itemLabel="n1"/>
-                        <f:selectItem itemValue="name2"  itemLabel="n2"/>
-                        <f:selectItem itemValue="name3" itemLabel="n3" />
+                    <p:selectOneMenu id="taxrate_to_select" value="#{headerDataItem.taxRate}"
+                                     title="Налог" style="width:150px;">
+                        <f:selectItem itemLabel="Налог:" itemValue="Налог:"/>
+                        <f:selectItems value="#{taxRatesDAOImpl.getAll()}"/>
                     </p:selectOneMenu>
                     <br/>
                     <p:inputText id="entity_date" value="#{headerDataItem.date}" size="17" onclick="this.value='';"/>
                     <br/>
-                    <p:inputText id="entity_number"  onchange="submit()"  value="#{headerDataItem.number}" size="17"
+                    <p:inputText id="entity_number" value="#{headerDataItem.number}" size="17"
                                  onclick="this.value='';"/>
                     <br/>
                 </p:column>
             </p:dataTable>
             <p:commandButton value="Сохранить2" icon="ui-icon-check"
-                             action="#{invoiceFacade.submitInInvoiceForm}"/>
+                             action="#{invoiceFacade.submitOutInvoiceForm}"/>
         </h:form>
     </ui:composition>
 </h:body>

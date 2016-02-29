@@ -40,7 +40,7 @@ public class TaxRatesDAOImpl implements TaxRatesDAO {
     @Transactional
     @Override
     public TaxRates getTaxById(Long id) {
-        Criteria criteria = getCriteria().add(Restrictions.ilike("id", id));
+        Criteria criteria = getCriteria().add(Restrictions.eq("id", id));
         List<TaxRates> result = criteria.list();
         if (result.isEmpty()) {
             System.err.println("No taxes were found by id: " + id);

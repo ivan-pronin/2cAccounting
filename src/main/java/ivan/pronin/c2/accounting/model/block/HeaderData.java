@@ -12,8 +12,27 @@ public class HeaderData {
     private Long number;
     private Timestamp date;
     private Long senderId;
+    private String senderName;
+    private String recieverName;
     private Long recieverId;
     private TaxRates taxRate;
+
+
+    public String getRecieverName() {
+        return recieverName;
+    }
+
+    public void setRecieverName(String recieverName) {
+        this.recieverName = recieverName;
+    }
+
+    public String getSenderName() {
+        return senderName;
+    }
+
+    public void setSenderName(String senderName) {
+        this.senderName = senderName;
+    }
 
     public TaxRates getTaxRate() {
         return taxRate;
@@ -60,8 +79,9 @@ public class HeaderData {
         return "HeaderData{" +
                 "number=" + number +
                 ", date=" + date +
-                ", senderId=" + senderId +
-                ", recieverId=" + recieverId +
+                ", senderName='" + senderName + '\'' +
+                ", recieverName='" + recieverName + '\'' +
+                ", taxRate=" + taxRate +
                 '}';
     }
 }

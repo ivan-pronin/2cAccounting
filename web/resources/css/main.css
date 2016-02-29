@@ -124,7 +124,7 @@ body {
 .left-menu a:hover {background: #e9f6fc;}
 .left-menu a.selected_link {background: #e9f6fc;}
 
-.right-content { float: left; border-left: 1px solid #e5e5e5; width: 1000px; min-height: 925px; padding-bottom: 34px;}
+.right-content { float: left; border-left: 1px solid #e5e5e5; width: 1000px; min-height: 925px; padding-bottom: 34px; margin-top: 10px;}
 .box-sh {padding-right: 40px; overflow: hidden; }
 .box-sh h1 {float: left; color: #7f7f7f; font-size: 30px; margin-left: 39px; margin-top: 28px;}
 .box-sh a {margin-top: 25px; float: right; background: #d5c39d; padding: 10px 15px 10px 15px; border-radius: 5px; margin-left: 6px; font-size: 14px; color: #fff; text-decoration: none;}
@@ -333,4 +333,7 @@ body {
 .error-div-main label{
     font-size: 30px;
     color:#aeaeae;
+}
+.entityHeader{
+    padding: 10px;
 }

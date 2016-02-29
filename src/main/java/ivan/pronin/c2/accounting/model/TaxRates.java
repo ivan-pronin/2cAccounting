@@ -32,6 +32,12 @@ public class TaxRates {
         return value;
     }
 
+    @Override
+    public String toString() {
+        return "Налог{" + name +
+                " =" + value + '}';
+    }
+
     public void setValue(BigDecimal value) {
         this.value = value;
     }
@@ -44,8 +50,6 @@ public class TaxRates {
         TaxRates taxRates = (TaxRates) o;
 
         if (id != null ? !id.equals(taxRates.id) : taxRates.id != null) return false;
-        if (name != null ? !name.equals(taxRates.name) : taxRates.name != null) return false;
-        if (value != null ? !value.equals(taxRates.value) : taxRates.value != null) return false;
 
         return true;
     }

@@ -28,6 +28,16 @@ public class InvoiceFacade implements Serializable {
     private List<Invoice> inInvoices;
     private List<Invoice> outInvoices;
 
+    private String value;
+
+    public String getValue() {
+        return value;
+    }
+
+    public void setValue(String value) {
+        this.value = value;
+    }
+
     private List<HeaderData> inHeaderDataList;
     private List<InvoiceBody> inInvoiceBodyList;
     private List<HeaderData> outHeaderDataList;
@@ -38,7 +48,6 @@ public class InvoiceFacade implements Serializable {
 
     public InvoiceFacade() {
         inHeaderDataList = new ArrayList<>();
-
         inInvoiceBodyList = new ArrayList<>();
         outHeaderDataList = new ArrayList<>();
         outInvoiceBodyList = new ArrayList<>();
@@ -74,8 +83,15 @@ public class InvoiceFacade implements Serializable {
     }
 
     public void submitInInvoiceForm() {
+        System.out.println(" >>>>>>>>>> .... Submitting..." + headerDataItem);
+        System.out.println(" ======== value: " + value);
         for (InvoiceBody item : inInvoiceBodyList) {
             System.out.println("Printing item: " + item);
+        }
+
+        for (HeaderData item : inHeaderDataList) {
+            System.out.println("Pri" +
+                    "nting item: " + item);
         }
 /*        Session session = sessionFactory.getCurrentSession();
         Transaction transaction = session.beginTransaction();
@@ -84,6 +100,7 @@ public class InvoiceFacade implements Serializable {
     }
 
     public void submitOutInvoiceForm() {
+        System.out.println(" >>>>>>>>>>>> --------------- Submitting submitOutInvoiceForm..." + headerDataItem);
         for (InvoiceBody item : outInvoiceBodyList) {
             System.out.println("Printing item: " + item);
         }
@@ -101,5 +118,10 @@ public class InvoiceFacade implements Serializable {
         outHeaderDataList.clear();
         outInvoiceBodyList.clear();
         addOutInvoiceItemRow();
+    }
+
+    public void valueChanged()
+    {
+        System.out.println(" ===valueChanged ===== value: " + value);
     }
 }
