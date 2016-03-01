@@ -1,3 +1,16 @@
 //TODO:
 1. Add converters to handle all drop-down lists
 2. Implement recording to DB from UI input data
+
+Чтобы данные считывались из блока хедера, нужно:
+1. в выпадающих списках имплементить конвертеры
+2. хотя бы в 1 поле прописать onchange="submit()"
+
+   <f:selectItem itemValue="#{taxRatesDAOImpl.getTaxById(1)}" itemLabel="НДС 20%"/>
+<f:selectItems value="#{taxRatesDAOImpl.getAll()}" var="taxRates" itemValue="#{taxRates}" itemLabel="#{taxRates.value}|#{taxRates.id}"/>
+
+                    <p:selectOneMenu id="entity_from_select" value="#{headerDataItem.senderOrg}" converter="#{organizationConverter}" style="width:150px;">
+                        <f:selectItem itemLabel="Отправитель:"/>
+                        <f:selectItems value="#{organizationDAOImpl.getAll()}" var="organization" itemValue="#{organization}" itemLabel="#{organization.id}" />
+                    </p:selectOneMenu>
+                    <br/>

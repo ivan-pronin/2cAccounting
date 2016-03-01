@@ -15,14 +15,14 @@
         <h:form >
             <p:dataTable value="#{invoiceFacade.inHeaderDataList}" var="headerDataItem">
                 <p:column>
-                    <p:selectOneMenu id="entity_from_select" title="Отправитель" style="width:150px;">
-                        <f:selectItem itemLabel="Отправитель:" itemValue="#{headerDataItem.number}" value="#{headerDataItem.senderName}"/>
-                        <f:selectItems value="#{organizationDAOImpl.getAll()}"/>
+                    <p:selectOneMenu id="entity_from_select" value="#{headerDataItem.senderOrg}" converter="#{organizationConverter}" style="width:150px;">
+                        <f:selectItem itemLabel="Отправитель:"/>
+                        <f:selectItems value="#{organizationDAOImpl.getAll()}" var="organization" itemValue="#{organization}" itemLabel="#{organization.name}" />
                     </p:selectOneMenu>
                     <br/>
-                    <p:selectOneMenu id="taxrate_to_select"  title="Налог" style="width:150px;" value="#{headerDataItem.taxRate}" converter="#{taxRatesConverter}">
-                        <f:selectItem itemLabel="Налог:" />
-                        <f:selectItems value="#{taxRatesDAOImpl.getAll()}" var="taxRates" itemValue="#{taxRates}" itemLabel="#{taxRates.id}"/>
+                    <p:selectOneMenu id="taxrate_to_select" style="width:150px;" value="#{headerDataItem.taxRate}" converter="#{taxRatesConverter}">
+                        <f:selectItem itemLabel="Выберите налог"/>
+                        <f:selectItems value="#{taxRatesDAOImpl.getAll()}" var="taxRates" itemValue="#{taxRates}" itemLabel="#{taxRates.value}"/>
                     </p:selectOneMenu>
                     <br/>
                     <p:selectOneMenu id="number_to_select"  onchange="submit()"  title="NUMBER test" style="width:150px;" value="#{invoiceFacade.value}">

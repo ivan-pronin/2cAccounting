@@ -1,9 +1,13 @@
 package ivan.pronin.c2.accounting.model;
 
+import java.io.Serializable;
+
 /**
  * Created by Администратор on 27.01.2016.
  */
-public class Organization {
+public class Organization implements Serializable{
+
+    private static final long serialVersionUID = 42L;
     private Long id;
     private String name;
     private String address;
@@ -55,8 +59,7 @@ public class Organization {
     }
 
     @Override
-    public String toString()
-    {
-        return getName();
+    public String toString() {
+        return "Organization{ name= " + name + "} | " + id;
     }
 }

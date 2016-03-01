@@ -27,7 +27,7 @@ public class Invoice {
     }
 
     public Invoice(HeaderData headerData, InvoiceBody invoiceBody, Long productId) {
-        this(headerData.getNumber(), headerData.getDate(), headerData.getSenderId(), headerData.getRecieverId(),
+        this(headerData.getNumber(), headerData.getDate(), headerData.getSenderOrg().getId(), headerData.getRecieverOrg().getId(),
                 productId, invoiceBody.getProductAmount(), invoiceBody.getProductPrice(), invoiceBody.getProductCost(),
                 headerData.getTaxRate().getId(), invoiceBody.getNdsCost(), invoiceBody.getTotalCost());
     }

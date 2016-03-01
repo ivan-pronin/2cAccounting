@@ -31,6 +31,7 @@ public class OrganizationDAOImpl implements OrganizationDAO {
     @Transactional
     @Override
     public Organization getOrganizationById(long id) {
+        System.out.println(" ... Getting ORG by id: " + id);
         Criteria criteria = getCriteria().add(Restrictions.eq("id", id));
         return getOrganizationFromResult(criteria);
     }
@@ -44,6 +45,7 @@ public class OrganizationDAOImpl implements OrganizationDAO {
     @Transactional
     @Override
     public Organization getOrganizationByName(String name) {
+        System.out.println(" ... Getting ORG by name: " + name);
         Criteria criteria = getCriteria().add(Restrictions.ilike("name", name, MatchMode.ANYWHERE));
         return getOrganizationFromResult(criteria);
     }
@@ -51,11 +53,12 @@ public class OrganizationDAOImpl implements OrganizationDAO {
     private Organization getOrganizationFromResult(Criteria criteria) {
         List<Organization> result = criteria.list();
         if (result.isEmpty()) {
-            System.err.println("No organizations were found");
+            System.out.println("No organizations were found");
             return null;
         } else if (result.size() > 1) {
             System.out.println("More than 1 organization found, returning first one");
         }
+        System.out.println("Returning ORG: " + result.get(0));
         return result.get(0);
     }
 

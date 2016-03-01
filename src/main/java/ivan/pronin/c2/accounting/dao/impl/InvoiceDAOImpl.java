@@ -4,7 +4,6 @@ import ivan.pronin.c2.accounting.dao.criteria.CriteriaFactory;
 import ivan.pronin.c2.accounting.dao.interfaces.InvoiceDAO;
 import ivan.pronin.c2.accounting.model.Invoice;
 import org.hibernate.Criteria;
-import org.hibernate.SessionFactory;
 import org.hibernate.criterion.Restrictions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;

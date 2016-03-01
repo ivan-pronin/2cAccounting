@@ -40,10 +40,11 @@ public class TaxRatesDAOImpl implements TaxRatesDAO {
     @Transactional
     @Override
     public TaxRates getTaxById(Long id) {
+        System.out.println(" .......          Getting tax by id: " + id);
         Criteria criteria = getCriteria().add(Restrictions.eq("id", id));
         List<TaxRates> result = criteria.list();
         if (result.isEmpty()) {
-            System.err.println("No taxes were found by id: " + id);
+            System.out.println("No taxes were found by id: " + id);
             return null;
         } else if (result.size() > 1) {
             System.out.println("More than 1 result found, returning first one");

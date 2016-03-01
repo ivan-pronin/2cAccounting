@@ -2,12 +2,15 @@ package ivan.pronin.c2.accounting.model;
 
 import ivan.pronin.c2.accounting.model.enums.TaxType;
 
+import java.io.Serializable;
 import java.math.BigDecimal;
 
 /**
  * Created by Администратор on 27.01.2016.
  */
-public class TaxRates {
+public class TaxRates implements Serializable{
+
+    private static final long serialVersionUID = 44L;
     private Long id;
     private TaxType name;
     private BigDecimal value;
@@ -35,7 +38,7 @@ public class TaxRates {
     @Override
     public String toString() {
         return "Налог{" + name +
-                " =" + value + '}';
+                " =" + value + "} | " + id;
     }
 
     public void setValue(BigDecimal value) {

@@ -1,8 +1,7 @@
 package ivan.pronin.c2.accounting.model.converter;
 
-import ivan.pronin.c2.accounting.dao.impl.TaxRatesDAOImpl;
-import ivan.pronin.c2.accounting.dao.interfaces.TaxRatesDAO;
-import ivan.pronin.c2.accounting.model.TaxRates;
+import ivan.pronin.c2.accounting.dao.interfaces.OrganizationDAO;
+import ivan.pronin.c2.accounting.model.Organization;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -16,10 +15,10 @@ import javax.faces.convert.ConverterException;
  * Created by Администратор on 29.02.2016.
  */
 @Component
-public class TaxRatesConverter implements Converter {
+public class OrganizationConverter implements Converter {
 
     @Autowired
-    private TaxRatesDAO taxRatesDAO;
+    private OrganizationDAO organizationDAO;
 
     @Override
     public Object getAsObject(FacesContext context, UIComponent component, String value) {
@@ -28,12 +27,12 @@ public class TaxRatesConverter implements Converter {
         }
 
         try {
-            System.out.println("   ..... Converting tax from value: " + value);
+            System.out.println("   ..... Converting Organization from value: " + value);
             Long id = Long.valueOf(value.split("\\| ")[1]);
             System.out.println("   ..... ID: " + id);
-            return taxRatesDAO.getTaxById(id);
+            return organizationDAO.getOrganizationById(Long.valueOf(id));
         } catch (NumberFormatException e) {
-            throw new ConverterException(new FacesMessage(String.format("%s is not a valid TaxRate ID", value)), e);
+            throw new ConverterException(new FacesMessage(String.format("%s is not a valid Organization name", value)), e);
         }
     }
 
@@ -43,10 +42,10 @@ public class TaxRatesConverter implements Converter {
             return "";
         }
 
-        if (value instanceof TaxRates) {
+        if (value instanceof Organization) {
             return value.toString();
         } else {
-            throw new ConverterException(new FacesMessage(String.format("%s is not a valid TaxRate", value)));
+            throw new ConverterException(new FacesMessage(String.format("%s is not a valid Organization", value)));
         }
     }
 }

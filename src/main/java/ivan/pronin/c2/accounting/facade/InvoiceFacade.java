@@ -90,8 +90,7 @@ public class InvoiceFacade implements Serializable {
         }
 
         for (HeaderData item : inHeaderDataList) {
-            System.out.println("Pri" +
-                    "nting item: " + item);
+            System.out.println("Printing item: " + item);
         }
 /*        Session session = sessionFactory.getCurrentSession();
         Transaction transaction = session.beginTransaction();

@@ -1,5 +1,6 @@
 package ivan.pronin.c2.accounting.model.block;
 
+import ivan.pronin.c2.accounting.model.Organization;
 import ivan.pronin.c2.accounting.model.TaxRates;
 
 import java.sql.Timestamp;
@@ -11,28 +12,9 @@ public class HeaderData {
 
     private Long number;
     private Timestamp date;
-    private Long senderId;
-    private String senderName;
-    private String recieverName;
-    private Long recieverId;
+    private Organization senderOrg;
+    private Organization recieverOrg;
     private TaxRates taxRate;
-
-
-    public String getRecieverName() {
-        return recieverName;
-    }
-
-    public void setRecieverName(String recieverName) {
-        this.recieverName = recieverName;
-    }
-
-    public String getSenderName() {
-        return senderName;
-    }
-
-    public void setSenderName(String senderName) {
-        this.senderName = senderName;
-    }
 
     public TaxRates getTaxRate() {
         return taxRate;
@@ -58,20 +40,20 @@ public class HeaderData {
         this.date = date;
     }
 
-    public Long getSenderId() {
-        return senderId;
+    public Organization getSenderOrg() {
+        return senderOrg;
     }
 
-    public void setSenderId(Long senderId) {
-        this.senderId = senderId;
+    public void setSenderOrg(Organization senderOrg) {
+        this.senderOrg = senderOrg;
     }
 
-    public Long getRecieverId() {
-        return recieverId;
+    public Organization getRecieverOrg() {
+        return recieverOrg;
     }
 
-    public void setRecieverId(Long recieverId) {
-        this.recieverId = recieverId;
+    public void setRecieverOrg(Organization recieverOrg) {
+        this.recieverOrg = recieverOrg;
     }
 
     @Override
@@ -79,8 +61,8 @@ public class HeaderData {
         return "HeaderData{" +
                 "number=" + number +
                 ", date=" + date +
-                ", senderName='" + senderName + '\'' +
-                ", recieverName='" + recieverName + '\'' +
+                ", senderOrg=" + senderOrg +
+                ", recieverOrg=" + recieverOrg +
                 ", taxRate=" + taxRate +
                 '}';
     }

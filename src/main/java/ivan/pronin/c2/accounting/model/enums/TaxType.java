@@ -5,7 +5,7 @@ package ivan.pronin.c2.accounting.model.enums;
  */
 public enum TaxType {
 
-    NDS;
+    NDS, PODOHODNY;
 
     public static TaxType parse(String name) {
         for (TaxType t : TaxType.values()) {
