@@ -3,7 +3,7 @@ package ivan.pronin.c2.accounting.model.block;
 import ivan.pronin.c2.accounting.model.Organization;
 import ivan.pronin.c2.accounting.model.TaxRates;
 
-import java.sql.Timestamp;
+import java.util.Date;
 
 /**
  * Created by Администратор on 18.02.2016.
@@ -11,7 +11,7 @@ import java.sql.Timestamp;
 public class HeaderData {
 
     private Long number;
-    private Timestamp date;
+    private Date date;
     private Organization senderOrg;
     private Organization recieverOrg;
     private TaxRates taxRate;
@@ -32,11 +32,11 @@ public class HeaderData {
         this.number = number;
     }
 
-    public Timestamp getDate() {
+    public Date getDate() {
         return date;
     }
 
-    public void setDate(Timestamp date) {
+    public void setDate(Date date) {
         this.date = date;
     }
 

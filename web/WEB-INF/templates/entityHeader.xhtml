@@ -12,29 +12,45 @@
 
 <h:body>
     <ui:composition>
-        <h:form >
+        <h:form>
             <p:dataTable value="#{invoiceFacade.inHeaderDataList}" var="headerDataItem">
                 <p:column>
-                    <p:selectOneMenu id="entity_from_select" value="#{headerDataItem.senderOrg}" converter="#{organizationConverter}" style="width:150px;">
+                    <p:selectOneMenu id="entity_from_select" value="#{headerDataItem.senderOrg}"
+                                     converter="#{organizationConverter}" style="width:150px;">
                         <f:selectItem itemLabel="Отправитель:"/>
-                        <f:selectItems value="#{organizationDAOImpl.getAll()}" var="organization" itemValue="#{organization}" itemLabel="#{organization.name}" />
+                        <f:selectItems value="#{organizationDAOImpl.getAll()}" var="organization"
+                                       itemValue="#{organization}" itemLabel="#{organization.name}"/>
                     </p:selectOneMenu>
                     <br/>
-                    <p:selectOneMenu id="taxrate_to_select" style="width:150px;" value="#{headerDataItem.taxRate}" converter="#{taxRatesConverter}">
-                        <f:selectItem itemLabel="Выберите налог"/>
-                        <f:selectItems value="#{taxRatesDAOImpl.getAll()}" var="taxRates" itemValue="#{taxRates}" itemLabel="#{taxRates.value}"/>
+                    <p:selectOneMenu id="entity_to_select" value="#{headerDataItem.recieverOrg}"
+                                     converter="#{organizationConverter}" style="width:150px;">
+                        <f:selectItem itemLabel="Получатель:"/>
+                        <f:selectItems value="#{organizationDAOImpl.getAll()}" var="organization"
+                                       itemValue="#{organization}" itemLabel="#{organization.name}"/>
                     </p:selectOneMenu>
                     <br/>
-                    <p:selectOneMenu id="number_to_select"  onchange="submit()"  title="NUMBER test" style="width:150px;" value="#{invoiceFacade.value}">
-                        <f:selectItem itemValue="name1" itemLabel="n1"/>
-                        <f:selectItem itemValue="name2"  itemLabel="n2"/>
-                        <f:selectItem itemValue="name3" itemLabel="n3" />
+                    <p:selectOneMenu id="taxrate_to_select" style="width:150px;" value="#{headerDataItem.taxRate}"
+                                     converter="#{taxRatesConverter}">
+                        <f:selectItem itemLabel="НДС 20%" itemValue="#{taxRatesDAOImpl.getTaxById(1)}"/>
+                        <f:selectItems value="#{taxRatesDAOImpl.getAll()}" var="taxRates" itemValue="#{taxRates}"
+                                       itemLabel="НДС 20%"/>
                     </p:selectOneMenu>
                     <br/>
-                    <p:inputText id="entity_date" value="#{headerDataItem.date}" size="17" onclick="this.value='';"/>
+                    <p:calendar id="popup" value="#{headerDataItem.date}" size="17" label="Дата:" pattern="dd/MM/yyyy"
+                                placeholder="Дата:"/>
                     <br/>
-                    <p:inputText id="entity_number"  onchange="submit()"  value="#{headerDataItem.number}" size="17"
+                    <p:inputText id="entity_number" onchange="submit()" value="#{headerDataItem.number}" size="17"
+                                 placeholder="Номер:"
                                  onclick="this.value='';"/>
+                    <br/>
+
+                    <br/>
+                    <p:selectOneMenu id="number_to_select" onchange="submit()" title="NUMBER test" style="width:150px;"
+                                     value="#{invoiceFacade.value}">
+                        <f:selectItem itemValue="name1" itemLabel="n1"/>
+                        <f:selectItem itemValue="name2" itemLabel="n2"/>
+                        <f:selectItem itemValue="name3" itemLabel="n3"/>
+                    </p:selectOneMenu>
                     <br/>
                 </p:column>
             </p:dataTable>

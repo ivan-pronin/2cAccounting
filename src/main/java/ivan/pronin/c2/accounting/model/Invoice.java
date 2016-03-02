@@ -4,7 +4,7 @@ import ivan.pronin.c2.accounting.model.block.HeaderData;
 import ivan.pronin.c2.accounting.model.block.InvoiceBody;
 
 import java.math.BigDecimal;
-import java.sql.Timestamp;
+import java.util.Date;
 
 /**
  * Created by Администратор on 27.01.2016.
@@ -12,7 +12,7 @@ import java.sql.Timestamp;
 public class Invoice {
     private Long id;
     private Long number;
-    private Timestamp date;
+    private Date date;
     private Long senderId;
     private Long recieverId;
     private Long productId;
@@ -32,7 +32,7 @@ public class Invoice {
                 headerData.getTaxRate().getId(), invoiceBody.getNdsCost(), invoiceBody.getTotalCost());
     }
 
-    public Invoice(Long number, Timestamp date, Long senderId, Long recieverId, Long productId, Long productAmount,
+    public Invoice(Long number, Date date, Long senderId, Long recieverId, Long productId, Long productAmount,
                    BigDecimal productPrice, BigDecimal productCost, Long ndsId, BigDecimal ndsCost, BigDecimal
                            totalCost) {
         this.number = number;
@@ -64,11 +64,11 @@ public class Invoice {
         this.number = number;
     }
 
-    public Timestamp getDate() {
+    public Date getDate() {
         return date;
     }
 
-    public void setDate(Timestamp date) {
+    public void setDate(Date date) {
         this.date = date;
     }
 
