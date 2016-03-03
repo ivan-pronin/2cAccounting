@@ -44,9 +44,8 @@ public class Product {
     }
 
     @Override
-    public String toString()
-    {
-        return "<id>:" + getId() + ", <name:>" + getName();
+    public String toString() {
+        return "Product{ name= " + name + "} | " + id;
     }
 
 }

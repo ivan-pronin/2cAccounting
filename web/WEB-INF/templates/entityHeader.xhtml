@@ -52,10 +52,18 @@
                         <f:selectItem itemValue="name3" itemLabel="n3"/>
                     </p:selectOneMenu>
                     <br/>
+
+                    <p:autoComplete id="themePojoTest" value="#{invoiceFacade.testProduct}" completeMethod="#{invoiceFacade.completeProduct}"
+                                    var="product" itemLabel="#{product}" itemValue="#{product}" converter="#{productConverter}" forceSelection="true" />
+                    <br/>
+
                 </p:column>
             </p:dataTable>
             <p:commandButton value="Сохранить2" icon="ui-icon-check"
                              action="#{invoiceFacade.submitInInvoiceForm}"/>
+
+            <p:commandButton value="SaveTestProduct" icon="ui-icon-check"
+                             action="#{invoiceFacade.testProduct}"/>
         </h:form>
     </ui:composition>
 </h:body>

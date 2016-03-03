@@ -1,6 +1,8 @@
 package ivan.pronin.c2.accounting.facade;
 
+import ivan.pronin.c2.accounting.dao.interfaces.ProductDAO;
 import ivan.pronin.c2.accounting.model.Invoice;
+import ivan.pronin.c2.accounting.model.Product;
 import ivan.pronin.c2.accounting.model.block.HeaderData;
 import ivan.pronin.c2.accounting.model.block.InvoiceBody;
 import ivan.pronin.c2.accounting.model.factory.IInvoiceFactory;
@@ -74,9 +76,13 @@ public class InvoiceFacade implements Serializable {
         return inInvoiceBodyList;
     }
 
-    public List<HeaderData> getOutHeaderDataList() { return outHeaderDataList; }
+    public List<HeaderData> getOutHeaderDataList() {
+        return outHeaderDataList;
+    }
 
-    public List<InvoiceBody> getOutInvoiceBodyList() { return outInvoiceBodyList; }
+    public List<InvoiceBody> getOutInvoiceBodyList() {
+        return outInvoiceBodyList;
+    }
 
     public void addInInvoiceItemRow() {
         invoiceBodyItem = new InvoiceBody();
@@ -129,8 +135,38 @@ public class InvoiceFacade implements Serializable {
         addOutInvoiceItemRow();
     }
 
-    public void valueChanged()
-    {
+    public void valueChanged() {
         System.out.println(" ===valueChanged ===== value: " + value);
+    }
+
+    private Product testProduct;
+
+    public Product getTestProduct() {
+        return testProduct;
+    }
+
+    public void setTestProduct(Product testProduct) {
+        this.testProduct = testProduct;
+    }
+
+    public void testProduct() {
+        System.out.println(" >>> Test product is: " + testProduct);
+    }
+
+    @Autowired
+    private ProductDAO productDAO;
+
+    @Transactional
+    public List<Product> completeProduct(String query) {
+        List<Product> products = productDAO.getAll();
+        List<Product> filteredProducts = new ArrayList<Product>();
+
+        for (int i = 0; i < products.size(); i++) {
+            Product p = products.get(i);
+            if (p.getName().toLowerCase().contains(query)) {
+                filteredProducts.add(p);
+            }
+        }
+        return filteredProducts;
     }
 }
