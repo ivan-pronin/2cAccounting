@@ -1,5 +1,5 @@
 //TODO:
-1. Add converters to handle all drop-down lists
++++1. Add converters to handle all drop-down lists
 2. Implement recording to DB from UI input data
 
 Чтобы данные считывались из блока хедера, нужно:

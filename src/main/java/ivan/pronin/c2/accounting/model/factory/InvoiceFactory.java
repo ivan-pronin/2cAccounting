@@ -5,6 +5,8 @@ import ivan.pronin.c2.accounting.model.Invoice;
 import ivan.pronin.c2.accounting.model.block.HeaderData;
 import ivan.pronin.c2.accounting.model.block.InvoiceBody;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.math.BigDecimal;
 import java.sql.Timestamp;
@@ -14,6 +16,7 @@ import java.util.List;
 /**
  * Created by Администратор on 21.02.2016.
  */
+@Component("invoiceFactory")
 public class InvoiceFactory implements IInvoiceFactory {
 
     private Long id;
@@ -33,6 +36,7 @@ public class InvoiceFactory implements IInvoiceFactory {
     @Autowired
     private ProductDAO productDAO;
 
+    @Transactional
     @Override
     public Invoice createInvoice(HeaderData headerData, InvoiceBody invoiceBody) {
         productName = invoiceBody.getProductName();

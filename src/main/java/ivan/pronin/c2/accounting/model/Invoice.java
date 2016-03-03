@@ -3,6 +3,8 @@ package ivan.pronin.c2.accounting.model;
 import ivan.pronin.c2.accounting.model.block.HeaderData;
 import ivan.pronin.c2.accounting.model.block.InvoiceBody;
 
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
 import java.math.BigDecimal;
 import java.util.Date;
 
@@ -10,6 +12,7 @@ import java.util.Date;
  * Created by Администратор on 27.01.2016.
  */
 public class Invoice {
+
     private Long id;
     private Long number;
     private Date date;

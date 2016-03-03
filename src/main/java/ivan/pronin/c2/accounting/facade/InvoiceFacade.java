@@ -3,12 +3,15 @@ package ivan.pronin.c2.accounting.facade;
 import ivan.pronin.c2.accounting.model.Invoice;
 import ivan.pronin.c2.accounting.model.block.HeaderData;
 import ivan.pronin.c2.accounting.model.block.InvoiceBody;
+import ivan.pronin.c2.accounting.model.factory.IInvoiceFactory;
+import ivan.pronin.c2.accounting.model.factory.InvoiceFactory;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
+import org.springframework.transaction.annotation.Transactional;
 
 import javax.faces.bean.SessionScoped;
 import java.io.Serializable;
@@ -24,6 +27,9 @@ public class InvoiceFacade implements Serializable {
 
     @Autowired
     private SessionFactory sessionFactory;
+
+    @Autowired
+    private IInvoiceFactory invoiceFactory;
 
     private List<Invoice> inInvoices;
     private List<Invoice> outInvoices;
@@ -82,20 +88,24 @@ public class InvoiceFacade implements Serializable {
         outInvoiceBodyList.add(invoiceBodyItem);
     }
 
+    @Transactional
     public void submitInInvoiceForm() {
-        System.out.println(" >>>>>>>>>> .... Submitting..." + headerDataItem);
-        System.out.println(" ======== value: " + value);
         for (InvoiceBody item : inInvoiceBodyList) {
-            System.out.println("Printing item: " + item);
+            System.out.println(" >>> Printing InvoiceBody item: " + item);
         }
 
         for (HeaderData item : inHeaderDataList) {
-            System.out.println("Printing item: " + item);
+            System.out.println(" >>> Printing Header item: " + item);
         }
-/*        Session session = sessionFactory.getCurrentSession();
+
+        Invoice invoice = invoiceFactory.createInvoice(headerDataItem, invoiceBodyItem);
+        System.out.println(">>> Trying to save invoice: " + invoice);
+        Session session = sessionFactory.openSession();
         Transaction transaction = session.beginTransaction();
-        session.save();
-        transaction.commit();*/
+        session.persist(invoice);
+        Long id = (Long) session.save(invoice);
+        transaction.commit();
+        System.out.println(" >> Saved with id: " + id);
     }
 
     public void submitOutInvoiceForm() {
