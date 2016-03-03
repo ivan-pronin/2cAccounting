@@ -39,7 +39,7 @@ public class InvoiceFactory implements IInvoiceFactory {
     @Transactional
     @Override
     public Invoice createInvoice(HeaderData headerData, InvoiceBody invoiceBody) {
-        productName = invoiceBody.getProductName();
+        productName = invoiceBody.getProduct().getName();
         productId = productDAO.getProductIdByName(productName);
 
         return new Invoice(headerData, invoiceBody, productId);

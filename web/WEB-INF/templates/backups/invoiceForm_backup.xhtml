@@ -17,7 +17,7 @@
                     <p:dataTable value="#{invoiceFacade.inInvoiceBodyList}" var="invoiceBodyItem"
                                  id="incoming_ttn_invoice_table">
                         <p:column headerText="Наименование">
-                            <p:inputText id="incoming_ttn_productName" value="#{invoiceBodyItem.productName}"
+                            <p:inputText id="incoming_ttn_productName" value="#{invoiceBodyItem.product}"
                                          size="10"/>
                         </p:column>
                         <p:column headerText="Цена">
@@ -53,7 +53,7 @@
                     <p:dataTable value="#{invoiceFacade.outInvoiceBodyList}" var="invoiceBodyItem"
                                  id="outgoing_ttn_invoice_table">
                         <p:column headerText="Наименование">
-                            <p:inputText id="outgoing_ttn_productName" value="#{invoiceBodyItem.productName}"
+                            <p:inputText id="outgoing_ttn_productName" value="#{invoiceBodyItem.product}"
                                          size="10"/>
                         </p:column>
                         <p:column headerText="Цена">

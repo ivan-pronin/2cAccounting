@@ -1,5 +1,7 @@
 package ivan.pronin.c2.accounting.model.block;
 
+import ivan.pronin.c2.accounting.model.Product;
+
 import java.math.BigDecimal;
 
 /**
@@ -7,7 +9,7 @@ import java.math.BigDecimal;
  */
 public class InvoiceBody {
 
-    private String productName;
+    private Product product;
     private BigDecimal productPrice;
     private Long productAmount;
     private BigDecimal productCost;
@@ -17,7 +19,7 @@ public class InvoiceBody {
     @Override
     public String toString() {
         return "InvoiceBody{" +
-                "productName='" + productName + '\'' +
+                "product='" + product + '\'' +
                 ", productPrice=" + productPrice +
                 ", productAmount=" + productAmount +
                 ", productCost=" + productCost +
@@ -26,12 +28,12 @@ public class InvoiceBody {
                 '}';
     }
 
-    public String getProductName() {
-        return productName;
+    public Product getProduct() {
+        return product;
     }
 
-    public void setProductName(String productName) {
-        this.productName = productName;
+    public void setProduct(Product product) {
+        this.product = product;
     }
 
     public BigDecimal getProductPrice() {

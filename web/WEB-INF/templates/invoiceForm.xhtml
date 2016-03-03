@@ -16,9 +16,10 @@
                 <h:form>
                     <p:dataTable value="#{invoiceFacade.inInvoiceBodyList}" var="invoiceBodyItem"
                                  id="incoming_ttn_invoice_table">
-                        <p:column headerText="Наименование">
-                            <p:inputText id="incoming_ttn_productName" value="#{invoiceBodyItem.productName}"
-                                         size="10"/>
+                        <p:column headerText="Наименование товара">
+                            <p:autoComplete id="incoming_ttn_productName" value="#{invoiceBodyItem.product}" completeMethod="#{invoiceFacade.completeProduct}"
+                                            var="product" itemLabel="#{product}" itemValue="#{product}" converter="#{productConverter}" forceSelection="true" />
+
                         </p:column>
                         <p:column headerText="Цена">
                             <p:inputText id="incoming_ttn_productPrice" value="#{invoiceBodyItem.productPrice}"
@@ -53,7 +54,7 @@
                     <p:dataTable value="#{invoiceFacade.outInvoiceBodyList}" var="invoiceBodyItem"
                                  id="outgoing_ttn_invoice_table">
                         <p:column headerText="Наименование">
-                            <p:inputText id="outgoing_ttn_productName" value="#{invoiceBodyItem.productName}"
+                            <p:inputText id="outgoing_ttn_productName" value="#{invoiceBodyItem.product}"
                                          size="10"/>
                         </p:column>
                         <p:column headerText="Цена">
