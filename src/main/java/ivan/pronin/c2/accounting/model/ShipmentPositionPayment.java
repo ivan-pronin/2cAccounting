@@ -5,7 +5,7 @@ import java.math.BigDecimal;
 /**
  * Created by Администратор on 27.01.2016.
  */
-public class ShipmentPayment {
+public class ShipmentPositionPayment {
     private Long id;
     private Long senderId;
     private Long recieverId;
@@ -84,7 +84,7 @@ public class ShipmentPayment {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
 
-        ShipmentPayment that = (ShipmentPayment) o;
+        ShipmentPositionPayment that = (ShipmentPositionPayment) o;
 
         if (id != null ? !id.equals(that.id) : that.id != null) return false;
         if (senderId != null ? !senderId.equals(that.senderId) : that.senderId != null) return false;

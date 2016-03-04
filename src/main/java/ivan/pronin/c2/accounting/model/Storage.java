@@ -7,8 +7,17 @@ import java.math.BigDecimal;
  */
 public class Storage {
     private Long id;
+    private Long invoiceId;
     private Long productId;
     private BigDecimal productAmount;
+
+    public Long getInvoiceId() {
+        return invoiceId;
+    }
+
+    public void setInvoiceId(Long invoiceId) {
+        this.invoiceId = invoiceId;
+    }
 
     public Long getId() {
         return id;

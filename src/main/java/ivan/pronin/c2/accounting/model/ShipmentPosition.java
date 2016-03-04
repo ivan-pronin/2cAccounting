@@ -5,7 +5,7 @@ import java.math.BigDecimal;
 /**
  * Created by Администратор on 27.01.2016.
  */
-public class Shipment {
+public class ShipmentPosition {
     private Long id;
     private Long senderId;
     private Long recieverId;
@@ -75,16 +75,16 @@ public class Shipment {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
 
-        Shipment shipment = (Shipment) o;
+        ShipmentPosition shipmentPosition = (ShipmentPosition) o;
 
-        if (id != null ? !id.equals(shipment.id) : shipment.id != null) return false;
-        if (senderId != null ? !senderId.equals(shipment.senderId) : shipment.senderId != null) return false;
-        if (recieverId != null ? !recieverId.equals(shipment.recieverId) : shipment.recieverId != null) return false;
-        if (invoiceId != null ? !invoiceId.equals(shipment.invoiceId) : shipment.invoiceId != null) return false;
-        if (productId != null ? !productId.equals(shipment.productId) : shipment.productId != null) return false;
-        if (productAmount != null ? !productAmount.equals(shipment.productAmount) : shipment.productAmount != null)
+        if (id != null ? !id.equals(shipmentPosition.id) : shipmentPosition.id != null) return false;
+        if (senderId != null ? !senderId.equals(shipmentPosition.senderId) : shipmentPosition.senderId != null) return false;
+        if (recieverId != null ? !recieverId.equals(shipmentPosition.recieverId) : shipmentPosition.recieverId != null) return false;
+        if (invoiceId != null ? !invoiceId.equals(shipmentPosition.invoiceId) : shipmentPosition.invoiceId != null) return false;
+        if (productId != null ? !productId.equals(shipmentPosition.productId) : shipmentPosition.productId != null) return false;
+        if (productAmount != null ? !productAmount.equals(shipmentPosition.productAmount) : shipmentPosition.productAmount != null)
             return false;
-        if (shipmentCost != null ? !shipmentCost.equals(shipment.shipmentCost) : shipment.shipmentCost != null)
+        if (shipmentCost != null ? !shipmentCost.equals(shipmentPosition.shipmentCost) : shipmentPosition.shipmentCost != null)
             return false;
 
         return true;

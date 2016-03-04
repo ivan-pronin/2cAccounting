@@ -4,7 +4,7 @@
     "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
 <hibernate-mapping>
 
-    <class name="ivan.pronin.c2.accounting.model.ShipmentPayment" table="shipment_payment" schema="2c_accounting">
+    <class name="ivan.pronin.c2.accounting.model.ShipmentPositionPayment" table="shipment_position_payment" schema="2c_accounting">
         <id name="id">
             <column name="id" sql-type="bigint(20)"/>
         </id>

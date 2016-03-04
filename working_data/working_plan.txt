@@ -2,12 +2,13 @@
 ***************   //TODO                ***************
 *******************************************************
 - Add DB entities:
->>> Storage
++++ Storage
++++>>> add invoice_id to Storage
 >>> BankAccount
->>> IncomePosition
->>> ShipmentPosition
->>> IncomePositionPayment
->>> ShipmentPositionPayment
++++ IncomePosition
++++>>> ShipmentPosition - rename
++++ IncomePositionPayment
++++>>> ShipmentPositionPayment - rename
 
 - Implement 1 full chain of all Business scenarios
 

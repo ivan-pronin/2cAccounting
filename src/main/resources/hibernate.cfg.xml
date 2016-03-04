@@ -19,13 +19,14 @@
     <mapping resource="ivan.pronin.c2.accounting.model/Organization.hbm.xml"/>
     <mapping resource="ivan.pronin.c2.accounting.model/Payment.hbm.xml"/>
     <mapping resource="ivan.pronin.c2.accounting.model/Product.hbm.xml"/>
-    <mapping resource="ivan.pronin.c2.accounting.model/Shipment.hbm.xml"/>
-    <mapping resource="ivan.pronin.c2.accounting.model/ShipmentPayment.hbm.xml"/>
+    <mapping resource="ivan.pronin.c2.accounting.model/ShipmentPosition.hbm.xml"/>
+    <mapping resource="ivan.pronin.c2.accounting.model/ShipmentPositionPayment.hbm.xml"/>
     <mapping resource="ivan.pronin.c2.accounting.model/Storage.hbm.xml"/>
     <mapping resource="ivan.pronin.c2.accounting.model/TestInvoice.hbm.xml"/>
     <mapping resource="ivan.pronin.c2.accounting.model/TestProduct.hbm.xml"/>
     <mapping resource="ivan.pronin.c2.accounting.model/User.hbm.xml"/>
     <mapping resource="ivan.pronin.c2.accounting.model/TaxRates.hbm.xml"/>
+    <mapping resource="ivan.pronin.c2.accounting.model/BankAccount.hbm.xml"/>
     <!--    <property name="hibernate.connection.user">root</property>
         <property name="hibernate.connection.password">root</property>-->
     <!-- DB schema will be updated if needed -->

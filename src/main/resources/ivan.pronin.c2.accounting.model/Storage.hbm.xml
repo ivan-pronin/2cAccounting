@@ -8,6 +8,9 @@
         <id name="id">
             <column name="id" sql-type="bigint(20)"/>
         </id>
+        <property name="invoiceId">
+            <column name="invoice_id" sql-type="bigint(20)"/>
+        </property>
         <property name="productId">
             <column name="product_id" sql-type="bigint(20)"/>
         </property>
