@@ -1,17 +1,18 @@
 *******************************************************
 ***************   //TODO                ***************
 *******************************************************
-- Add DB entities:
+
+- Implement 1 full chain of all Business scenarios
+
+
++++- Add DB entities:
 +++ Storage
 +++>>> add invoice_id to Storage
->>> BankAccount
++++ BankAccount
 +++ IncomePosition
 +++>>> ShipmentPosition - rename
 +++ IncomePositionPayment
 +++>>> ShipmentPositionPayment - rename
-
-- Implement 1 full chain of all Business scenarios
-
 +++ Add converters to handle all drop-down lists
 +++ Implement recording to DB from UI input data - Demo done
 +++ Implement autoComplete for product name
