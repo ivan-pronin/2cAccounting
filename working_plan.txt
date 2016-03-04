@@ -1,14 +1,75 @@
-//TODO:
-+++1. Add converters to handle all drop-down lists
-+++2. Implement recording to DB from UI input data - Demo done
-- Implement autoComplete for product name
-Business scenarios:
+*******************************************************
+***************   //TODO                ***************
+*******************************************************
+- Add DB entities:
+>>> Storage
+>>> BankAccount
+>>> IncomePosition
+>>> ShipmentPosition
+>>> IncomePositionPayment
+>>> ShipmentPositionPayment
 
-1. Input Invoice data:
-> add constraints:
--- IncomingInvoice:
->>> id != null
->>> senderId != recieverId
+- Implement 1 full chain of all Business scenarios
+
++++ Add converters to handle all drop-down lists
++++ Implement recording to DB from UI input data - Demo done
++++ Implement autoComplete for product name
+
+*******************************************************
+***************   Business scenarios:   ***************
+*******************************************************
+
+1. Make incoming products Invoice (Input incoming Invoice data):
+-- add Invoice:
+>>> id > isFound
+>>> senderId != recieverId >both Found
+>>> productId > isFound
+>>> productAmount > 0
+>>> productPrice > 0
+>>> ndsId > isFound
+>>> ndsCost > 0
+>>> totalCost > 0
+
+2. Process incoming Invoice:
+- Add to storage
+>>> add products of each type to the storage amount
+- Add IncomePositions
+>>> senderId != id of Melnikov
+>>> incoiceId > isFound
+>>> productId > isFound
+>>> productAmount > 0
+>>> productCost > 0
+
+3. Make outgoing Payment
+--- add Payment data:
+>>> id > isFound
+>>> number > 0
+>>> invoiceNumber > isFound
+>>> senderId != recieverId >both Found
+>>> productId > isFound
+>>> productAmount > 0
+>>> amount > 0
+
+4. Process outgoing Payment:
+- add outcome_amount to BankAccount
+- add ShipmentPayment
+
+5. Make outgoing products Invoice (Input outgoing Invoice data):
+-- add Invoice:
+
+6. Process outgoing Invoice
+- Remove from Storage
+- Add Shipment
+
+7. Make incoming Payment:
+--- add Payment data
+
+8. Process incoming Payment
+- add income_amount to BankAccount
+- add ShipmentPayment
+
+
+
 
 
 
