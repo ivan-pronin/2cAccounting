@@ -23,9 +23,9 @@
 
 1. Make incoming products Invoice (Input incoming Invoice data):
 -- add Invoice:
->>> id > isFound
->>> senderId != recieverId >both Found
->>> productId > isFound
++++>>> id > isFound
++++>>> senderId != recieverId >both Found
++++>>> productId > isFound
 >>> productAmount > 0
 >>> productPrice > 0
 >>> ndsId > isFound
