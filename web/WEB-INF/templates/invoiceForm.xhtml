@@ -18,35 +18,40 @@
                                  id="incoming_ttn_invoice_table">
                         <p:column headerText="Наименование товара">
                             <p:autoComplete id="incoming_ttn_productName" value="#{invoiceBodyItem.product}" completeMethod="#{invoiceFacade.completeProduct}"
-                                            var="product" itemLabel="#{product}" itemValue="#{product}" converter="#{productConverter}" forceSelection="true" />
+                                            var="product" itemLabel="#{product}" itemValue="#{product}" converter="#{productConverter}" forceSelection="true" required="true"/>
 
                         </p:column>
                         <p:column headerText="Цена">
                             <p:inputText id="incoming_ttn_productPrice" value="#{invoiceBodyItem.productPrice}"
-                                         size="10"/>
+                                         size="10" required="true"/>
                         </p:column>
                         <p:column headerText="Количество">
                             <p:inputText id="incoming_ttn_productAmount" value="#{invoiceBodyItem.productAmount}"
-                                         size="10"/>
+                                         size="10" required="true"/>
                         </p:column>
                         <p:column headerText="Стоимость">
                             <p:inputText id="incoming_ttn_productCost" value="#{invoiceBodyItem.productCost}"
-                                         size="10"/>
+                                         size="10" required="true"/>
                         </p:column>
                         <p:column headerText="Ст-сть НДС">
-                            <p:inputText id="incoming_ttn_ndsCost" value="#{invoiceBodyItem.ndsCost}" size="10"/>
+                            <p:inputText id="incoming_ttn_ndsCost" value="#{invoiceBodyItem.ndsCost}" size="10" required="true"/>
                         </p:column>
                         <p:column headerText="Итого">
-                            <p:inputText id="incoming_ttn_totalCost" value="#{invoiceBodyItem.totalCost}" size="10"/>
+                            <p:inputText id="incoming_ttn_totalCost" value="#{invoiceBodyItem.totalCost}" size="10" required="true"/>
                         </p:column>
                     </p:dataTable>
                     <p:commandButton id="incoming_ttn_addButton" icon="ui-icon-plus" value="Добавить строку"
                                      action="#{invoiceFacade.addInInvoiceItemRow}"/>
                     <p:commandButton id="incoming_ttn_saveButton" value="Сохранить" icon="ui-icon-check"
-                                     action="#{invoiceFacade.submitInInvoiceForm}"/>
+                                     action="#{invoiceFacade.submitInInvoiceForm}" validateClient="true"/>
                     <p:commandButton id="incoming_ttn_cancelButton" value="Отмена" icon="ui-icon-check"
                                      action="#{invoiceFacade.clearInForm}"/>
                 </h:form>
+                <div>
+                    <p:panel>
+                        <p:messages autoUpdate="true"/>
+                    </p:panel>
+                </div>
             </p:tab>
 
             <p:tab title="Расходные ТТН" id="outgoing_ttn">
@@ -83,6 +88,11 @@
                     <p:commandButton id="outgoing_ttn_cancelButton" value="Отмена" icon="ui-icon-check"
                                      action="#{invoiceFacade.clearOutForm}"/>
                 </h:form>
+                <div>
+                    <p:panel>
+                        <p:messages autoUpdate="true"/>
+                    </p:panel>
+                </div>
             </p:tab>
 
             <p:tab title="Test TAB">
