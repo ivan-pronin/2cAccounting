@@ -1,5 +1,6 @@
 package ivan.pronin.c2.accounting.facade;
 
+import ivan.pronin.c2.accounting.calculation.InvoiceCalculator;
 import ivan.pronin.c2.accounting.dao.interfaces.ProductDAO;
 import ivan.pronin.c2.accounting.model.Invoice;
 import ivan.pronin.c2.accounting.model.Product;
@@ -33,6 +34,9 @@ public class InvoiceFacade implements Serializable {
 
     @Autowired
     private IInvoiceFactory invoiceFactory;
+
+    @Autowired
+    private InvoiceCalculator invoiceCalculator;
 
     private List<Invoice> inInvoices;
     private List<Invoice> outInvoices;
@@ -171,48 +175,19 @@ public class InvoiceFacade implements Serializable {
         return filteredProducts;
     }
 
-    private BigDecimal price;
-    private BigDecimal amount;
-    private BigDecimal cost;
-    private String text;
-
-    public String getText() {
-        return text;
+    public void calculateProductCost() {
+        invoiceBodyItem.setProductCost(invoiceCalculator.calculateProductCost(invoiceBodyItem));
+        calculateNds();
+        calculateTotalCost();
     }
 
-    public void setText(String text) {
-        this.text = text;
+    private void calculateNds() {
+        invoiceBodyItem.setNdsCost(invoiceCalculator.calculateNds(invoiceBodyItem, headerDataItem.getTaxRate()
+                .getValue()));
     }
 
-    public BigDecimal getPrice() {
-        return price;
+    private void calculateTotalCost() {
+        invoiceBodyItem.setTotalCost(invoiceCalculator.calculateTotalCost(invoiceBodyItem));
     }
 
-    public void setPrice(BigDecimal price) {
-        this.price = price;
-    }
-
-    public BigDecimal getAmount() {
-        return amount;
-    }
-
-    public void setAmount(BigDecimal amount) {
-        this.amount = amount;
-    }
-
-    public BigDecimal getCost() {
-        return cost;
-    }
-
-    public void setCost(BigDecimal cost) {
-        this.cost = cost;
-    }
-
-    public void updateCost()
-    {
-        System.out.println(" >>> TRIGGERED value is: " + invoiceBodyItem);
-        BigDecimal  result = invoiceBodyItem.getProductPrice();
-        result = result.multiply(BigDecimal.valueOf(invoiceBodyItem.getProductAmount()));
-        invoiceBodyItem.setProductCost(result);
-    }
 }

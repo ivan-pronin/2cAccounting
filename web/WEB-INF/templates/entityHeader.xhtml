@@ -34,7 +34,7 @@
                     <br/>
                     <p:selectOneMenu id="taxrate_to_select" style="width:150px;" value="#{headerDataItem.taxRate}"
                                      label="Ставка НДС"
-                                     required="true"
+
                                      converter="#{taxRatesConverter}">
                         <f:selectItem itemLabel="НДС 20%" itemValue="#{taxRatesDAOImpl.getTaxById(1)}"/>
                         <f:selectItems value="#{taxRatesDAOImpl.getAll()}" var="taxRates" itemValue="#{taxRates}"
@@ -53,8 +53,6 @@
             </p:dataTable>
             <p:commandButton value="Сохранить2" icon="ui-icon-check"
                              action="#{invoiceFacade.submitInInvoiceForm}" validateClient="true"/>
-            <p:commandButton value="SaveTestProduct" icon="ui-icon-check"
-                             action="#{invoiceFacade.testProduct}"/>
         </h:form>
         <div>
             <p:panel>

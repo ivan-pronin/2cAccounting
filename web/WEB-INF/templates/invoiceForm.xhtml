@@ -18,8 +18,9 @@
                                  id="incoming_ttn_invoice_table">
                         <p:column headerText="Наименование товара">
                             <p:autoComplete id="incoming_ttn_productName" value="#{invoiceBodyItem.product}"
-         h:outputTextar="product" itemLabel="#{product}" itemValue="#{product}"
-                                            converter="#{productConverter}" forceSelection="true" required="true"
+                                            completeMethod="#{invoiceFacade.completeProduct}"
+                                            var="product" itemLabel="#{product}" itemValue="#{product}"
+                                            converter="#{productConverter}" required="true"
                                             label="Название товара" placeholder="Название товара"/>
 
                         </p:column>
@@ -27,30 +28,37 @@
                             <p:inputText id="incoming_ttn_productPrice" value="#{invoiceBodyItem.productPrice}"
                                          size="10" required="true" placeholder="Цена" label="Цена">
                                 <f:validateLongRange minimum="1"/>
+                                <f:ajax event="blur" listener="#{invoiceFacade.calculateProductCost}" update="incoming_ttn_productCost incoming_ttn_ndsCost incoming_ttn_totalCost" render="@form"/>
                             </p:inputText>
                         </p:column>
                         <p:column headerText="Количество">
                             <p:inputText id="incoming_ttn_productAmount" value="#{invoiceBodyItem.productAmount}"
                                          size="10" required="true" placeholder="Количество" label="Количество">
                                 <f:validateLongRange minimum="1"/>
+                                <f:ajax event="blur" listener="#{invoiceFacade.calculateProductCost}" update="incoming_ttn_productCost incoming_ttn_ndsCost incoming_ttn_totalCost" render="@form"/>
                             </p:inputText>
                         </p:column>
                         <p:column headerText="Стоимость">
                             <p:inputText id="incoming_ttn_productCost" value="#{invoiceBodyItem.productCost}"
                                          size="10" required="true" placeholder="Стоимость" label="Стоимость">
                                 <f:validateLongRange minimum="1"/>
+
+
                             </p:inputText>
                         </p:column>
                         <p:column headerText="Ст-сть НДС">
                             <p:inputText id="incoming_ttn_ndsCost" value="#{invoiceBodyItem.ndsCost}" size="10"
                                          required="true" placeholder="Стоимость НДС" label="Стоимость НДС">
                                 <f:validateLongRange minimum="1"/>
+
+
                             </p:inputText>
                         </p:column>
                         <p:column headerText="Итого">
                             <p:inputText id="incoming_ttn_totalCost" value="#{invoiceBodyItem.totalCost}" size="10"
                                          required="true" placeholder="Итого" label="Итого">
                                 <f:validateLongRange minimum="1"/>
+
                             </p:inputText>
                         </p:column>
                     </p:dataTable>
@@ -112,31 +120,30 @@
             <p:tab title="Test TAB">
                 <h:form>
                     <p:dataTable value="#{invoiceFacade.inInvoiceBodyList}" var="invoiceBodyItem"
-                                 id="incoming_ttn_invoice_table2" >
+                                 id="incoming_ttn_invoice_table2">
 
-                        <p:column headerText="Цена" >
+                        <p:column headerText="Цена">
                             <p:inputText id="incoming_ttn_productPrice2" value="#{invoiceBodyItem.productPrice}"
                                          size="10" required="true" placeholder="Цена" label="Цена">
                                 <f:validateLongRange minimum="1"/>
-                                <f:ajax event="keyup" listener="#{invoiceFacade.updateCost}" update="incoming_ttn_productCost2" render="@form"/>
+
                             </p:inputText>
                         </p:column>
                         <p:column headerText="Количество">
                             <p:inputText id="incoming_ttn_productAmount2" value="#{invoiceBodyItem.productAmount}"
                                          size="10" required="true" placeholder="Количество" label="Количество">
                                 <f:validateLongRange minimum="1"/>
-                                <f:ajax event="keyup" listener="#{invoiceFacade.updateCost}" update="incoming_ttn_productCost2" render="@form"/>
+
                             </p:inputText>
                         </p:column>
                         <p:column headerText="Стоимость">
                             <p:inputText id="incoming_ttn_productCost2" value="#{invoiceBodyItem.productCost}"
-                                         size="10" required="true"  placeholder="Стоимость" label="Стоимость">
+                                         size="10" required="true" placeholder="Стоимость" label="Стоимость">
 
                             </p:inputText>
                         </p:column>
 
                     </p:dataTable>
-
 
 
                 </h:form>
@@ -148,11 +155,11 @@
         <h:form id="form_ajax">
             <p:panelGrid columns="3" id="panel_ajax">
                 <h:outputText value="Keyup: " id="field_ajax"/>
-                <p:inputText value="#{invoiceFacade.text}" id="test_input">
-                    <f:ajax event="keyup" listener="#{invoiceFacade.updateCost}" update=":form_ajax:textbox_ttn" render="@form"/>
+                <p:inputText value="{invoiceFacade.text}" id="test_input">
+
                 </p:inputText>
-                <p:outputLabel id="textbox_ttn" value="#{invoiceFacade.text}" >
-                    <f:ajax update="@this" event="keyup"/>
+                <p:outputLabel id="textbox_ttn" value="{invoiceFacade.text}">
+
                 </p:outputLabel>
             </p:panelGrid>
         </h:form>
