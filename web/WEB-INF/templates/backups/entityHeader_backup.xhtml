@@ -13,17 +13,19 @@
 <h:body>
     <ui:composition>
         <h:form>
-
             <p:dataTable value="#{invoiceFacade.inHeaderDataList}" var="headerDataItem">
                 <p:column>
-                    <p:selectOneMenu id="entity_from_select" value="#{headerDataItem.senderOrg}"
-                                     converter="#{organizationConverter}" style="width:150px;" required="true" >
+                    <p:selectOneMenu id="sender_org_select" value="#{headerDataItem.senderOrg}"
+                                     converter="#{organizationConverter}" style="width:150px;" required="true"
+                                     label="Отправитель">
                         <f:selectItem itemLabel="Отправитель:"/>
                         <f:selectItems value="#{organizationDAOImpl.getAll()}" var="organization"
                                        itemValue="#{organization}" itemLabel="#{organization.name}"/>
+                        <f:validator validatorId="invoiceValidator"/>
                     </p:selectOneMenu>
                     <br/>
-                    <p:selectOneMenu id="entity_to_select" value="#{headerDataItem.recieverOrg}" required="true"
+                    <p:selectOneMenu id="reciever_org_select" value="#{headerDataItem.recieverOrg}" required="true"
+                                     label="Получатель"
                                      converter="#{organizationConverter}" style="width:150px;">
                         <f:selectItem itemLabel="Получатель:"/>
                         <f:selectItems value="#{organizationDAOImpl.getAll()}" var="organization"
@@ -31,6 +33,7 @@
                     </p:selectOneMenu>
                     <br/>
                     <p:selectOneMenu id="taxrate_to_select" style="width:150px;" value="#{headerDataItem.taxRate}"
+                                     label="Ставка НДС"
                                      required="true"
                                      converter="#{taxRatesConverter}">
                         <f:selectItem itemLabel="НДС 20%" itemValue="#{taxRatesDAOImpl.getTaxById(1)}"/>
@@ -41,16 +44,15 @@
                     <p:calendar id="popup" value="#{headerDataItem.date}" size="17" label="Дата:" pattern="dd/MM/yyyy"
                                 placeholder="Дата:" required="true"/>
                     <br/>
-                    <p:inputText id="entity_number"  required="true" onchange="submit()" value="#{headerDataItem.number}" size="17"
+                    <p:inputText id="entity_number" required="true" onchange="submit()" value="#{headerDataItem.number}"
+                                 size="17"
                                  placeholder="Номер:"
                                  onclick="this.value='';"/>
                     <br/>
-
                 </p:column>
             </p:dataTable>
             <p:commandButton value="Сохранить2" icon="ui-icon-check"
-                             action="#{invoiceFacade.submitInInvoiceForm}"/>
-
+                             action="#{invoiceFacade.submitInInvoiceForm}" validateClient="true"/>
             <p:commandButton value="SaveTestProduct" icon="ui-icon-check"
                              action="#{invoiceFacade.testProduct}"/>
         </h:form>

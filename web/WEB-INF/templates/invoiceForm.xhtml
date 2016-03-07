@@ -18,15 +18,14 @@
                                  id="incoming_ttn_invoice_table">
                         <p:column headerText="Наименование товара">
                             <p:autoComplete id="incoming_ttn_productName" value="#{invoiceBodyItem.product}"
-                                            completeMethod="#{invoiceFacade.completeProduct}"
-                                            var="product" itemLabel="#{product}" itemValue="#{product}"
+         h:outputTextar="product" itemLabel="#{product}" itemValue="#{product}"
                                             converter="#{productConverter}" forceSelection="true" required="true"
                                             label="Название товара" placeholder="Название товара"/>
 
                         </p:column>
                         <p:column headerText="Цена">
                             <p:inputText id="incoming_ttn_productPrice" value="#{invoiceBodyItem.productPrice}"
-                                         size="10" required="true" placeholder="Цена" label="Цена" >
+                                         size="10" required="true" placeholder="Цена" label="Цена">
                                 <f:validateLongRange minimum="1"/>
                             </p:inputText>
                         </p:column>
@@ -112,13 +111,51 @@
 
             <p:tab title="Test TAB">
                 <h:form>
-                    <p:commandButton id="testButton" icon="ui-check-plus" value="TEST BUTTON!"
-                                     action="#{testFacade.testGetList}"/>
-                    <p:commandButton id="testButton2" icon="ui-check-plus" value="TEST BUTTON!22"
-                                     action="#{invoiceFacade.submitOutInvoiceForm}"/>
+                    <p:dataTable value="#{invoiceFacade.inInvoiceBodyList}" var="invoiceBodyItem"
+                                 id="incoming_ttn_invoice_table2" >
+
+                        <p:column headerText="Цена" >
+                            <p:inputText id="incoming_ttn_productPrice2" value="#{invoiceBodyItem.productPrice}"
+                                         size="10" required="true" placeholder="Цена" label="Цена">
+                                <f:validateLongRange minimum="1"/>
+                                <f:ajax event="keyup" listener="#{invoiceFacade.updateCost}" update="incoming_ttn_productCost2" render="@form"/>
+                            </p:inputText>
+                        </p:column>
+                        <p:column headerText="Количество">
+                            <p:inputText id="incoming_ttn_productAmount2" value="#{invoiceBodyItem.productAmount}"
+                                         size="10" required="true" placeholder="Количество" label="Количество">
+                                <f:validateLongRange minimum="1"/>
+                                <f:ajax event="keyup" listener="#{invoiceFacade.updateCost}" update="incoming_ttn_productCost2" render="@form"/>
+                            </p:inputText>
+                        </p:column>
+                        <p:column headerText="Стоимость">
+                            <p:inputText id="incoming_ttn_productCost2" value="#{invoiceBodyItem.productCost}"
+                                         size="10" required="true"  placeholder="Стоимость" label="Стоимость">
+
+                            </p:inputText>
+                        </p:column>
+
+                    </p:dataTable>
+
+
+
                 </h:form>
+
+
             </p:tab>
         </p:tabView>
+
+        <h:form id="form_ajax">
+            <p:panelGrid columns="3" id="panel_ajax">
+                <h:outputText value="Keyup: " id="field_ajax"/>
+                <p:inputText value="#{invoiceFacade.text}" id="test_input">
+                    <f:ajax event="keyup" listener="#{invoiceFacade.updateCost}" update=":form_ajax:textbox_ttn" render="@form"/>
+                </p:inputText>
+                <p:outputLabel id="textbox_ttn" value="#{invoiceFacade.text}" >
+                    <f:ajax update="@this" event="keyup"/>
+                </p:outputLabel>
+            </p:panelGrid>
+        </h:form>
     </ui:composition>
 </h:body>
 </html>

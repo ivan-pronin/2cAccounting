@@ -26,11 +26,11 @@
 +++>>> id > isFound
 +++>>> senderId != recieverId >both Found
 +++>>> productId > isFound
->>> productAmount > 0
->>> productPrice > 0
->>> ndsId > isFound
->>> ndsCost > 0
->>> totalCost > 0
++++>>> productAmount > 0
++++>>> productPrice > 0
++++>>> ndsId > isFound
++++>>> ndsCost > 0
++++>>> totalCost > 0
 
 2. Process incoming Invoice:
 - Add to storage

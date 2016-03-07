@@ -17,6 +17,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import javax.faces.bean.SessionScoped;
 import java.io.Serializable;
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -168,5 +169,50 @@ public class InvoiceFacade implements Serializable {
             }
         }
         return filteredProducts;
+    }
+
+    private BigDecimal price;
+    private BigDecimal amount;
+    private BigDecimal cost;
+    private String text;
+
+    public String getText() {
+        return text;
+    }
+
+    public void setText(String text) {
+        this.text = text;
+    }
+
+    public BigDecimal getPrice() {
+        return price;
+    }
+
+    public void setPrice(BigDecimal price) {
+        this.price = price;
+    }
+
+    public BigDecimal getAmount() {
+        return amount;
+    }
+
+    public void setAmount(BigDecimal amount) {
+        this.amount = amount;
+    }
+
+    public BigDecimal getCost() {
+        return cost;
+    }
+
+    public void setCost(BigDecimal cost) {
+        this.cost = cost;
+    }
+
+    public void updateCost()
+    {
+        System.out.println(" >>> TRIGGERED value is: " + invoiceBodyItem);
+        BigDecimal  result = invoiceBodyItem.getProductPrice();
+        result = result.multiply(BigDecimal.valueOf(invoiceBodyItem.getProductAmount()));
+        invoiceBodyItem.setProductCost(result);
     }
 }
