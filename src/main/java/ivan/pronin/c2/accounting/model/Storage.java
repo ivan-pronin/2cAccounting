@@ -7,16 +7,26 @@ import java.math.BigDecimal;
  */
 public class Storage {
     private Long id;
-    private Long invoiceId;
+    private Long invoiceNumber;
     private Long productId;
     private BigDecimal productAmount;
 
-    public Long getInvoiceId() {
-        return invoiceId;
+
+    public Storage() {
     }
 
-    public void setInvoiceId(Long invoiceId) {
-        this.invoiceId = invoiceId;
+    public Storage(Long invoiceId, Long productId, BigDecimal productAmount) {
+        this.invoiceNumber = invoiceId;
+        this.productId = productId;
+        this.productAmount = productAmount;
+    }
+
+    public Long getInvoiceNumber() {
+        return invoiceNumber;
+    }
+
+    public void setInvoiceNumber(Long invoiceId) {
+        this.invoiceNumber = invoiceId;
     }
 
     public Long getId() {
