@@ -3,6 +3,8 @@ package ivan.pronin.c2.accounting.dao.impl;
 import ivan.pronin.c2.accounting.dao.criteria.CriteriaFactory;
 import ivan.pronin.c2.accounting.dao.interfaces.OrganizationDAO;
 import ivan.pronin.c2.accounting.model.Organization;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.hibernate.Criteria;
 import org.hibernate.criterion.MatchMode;
 import org.hibernate.criterion.Restrictions;
@@ -21,6 +23,8 @@ public class OrganizationDAOImpl implements OrganizationDAO {
     @Autowired
     private CriteriaFactory criteriaFactory;
 
+    private final Logger LOGGER = LogManager.getLogger(OrganizationDAOImpl.class);
+
     @Transactional
     @Override
     public List<Organization> getAll() {
@@ -31,7 +35,7 @@ public class OrganizationDAOImpl implements OrganizationDAO {
     @Transactional
     @Override
     public Organization getOrganizationById(long id) {
-        System.out.println(" ... Getting ORG by id: " + id);
+        LOGGER.info("Getting ORG by id: " + id);
         Criteria criteria = getCriteria().add(Restrictions.eq("id", id));
         return getOrganizationFromResult(criteria);
     }
@@ -45,7 +49,7 @@ public class OrganizationDAOImpl implements OrganizationDAO {
     @Transactional
     @Override
     public Organization getOrganizationByName(String name) {
-        System.out.println(" ... Getting ORG by name: " + name);
+       LOGGER.info("Getting ORG by name: " + name);
         Criteria criteria = getCriteria().add(Restrictions.ilike("name", name, MatchMode.ANYWHERE));
         return getOrganizationFromResult(criteria);
     }
@@ -53,13 +57,14 @@ public class OrganizationDAOImpl implements OrganizationDAO {
     private Organization getOrganizationFromResult(Criteria criteria) {
         List<Organization> result = criteria.list();
         if (result.isEmpty()) {
-            System.out.println("No organizations were found");
+            LOGGER.error("No organizations were found");
             return null;
         } else if (result.size() > 1) {
-            System.out.println("More than 1 organization found, returning first one");
+            LOGGER.warn("More than 1 organization was found, returning first one");
         }
-        System.out.println("Returning ORG: " + result.get(0));
-        return result.get(0);
+        final Organization organization = result.get(0);
+        LOGGER.info("Returning ORG: " + organization);
+        return organization;
     }
 
     private Criteria getCriteria() {

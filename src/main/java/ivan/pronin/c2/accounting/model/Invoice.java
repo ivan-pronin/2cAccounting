@@ -19,7 +19,7 @@ public class Invoice {
     private Long senderId;
     private Long recieverId;
     private Long productId;
-    private Long productAmount;
+    private BigDecimal productAmount;
     private BigDecimal productPrice;
     private BigDecimal productCost;
     private Long ndsId;
@@ -35,7 +35,7 @@ public class Invoice {
                 headerData.getTaxRate().getId(), invoiceBody.getNdsCost(), invoiceBody.getTotalCost());
     }
 
-    public Invoice(Long number, Date date, Long senderId, Long recieverId, Long productId, Long productAmount,
+    public Invoice(Long number, Date date, Long senderId, Long recieverId, Long productId, BigDecimal productAmount,
                    BigDecimal productPrice, BigDecimal productCost, Long ndsId, BigDecimal ndsCost, BigDecimal
                            totalCost) {
         this.number = number;
@@ -99,11 +99,11 @@ public class Invoice {
         this.productId = productId;
     }
 
-    public Long getProductAmount() {
+    public BigDecimal getProductAmount() {
         return productAmount;
     }
 
-    public void setProductAmount(Long productAmount) {
+    public void setProductAmount(BigDecimal productAmount) {
         this.productAmount = productAmount;
     }
 

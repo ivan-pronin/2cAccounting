@@ -1,6 +1,7 @@
 package ivan.pronin.c2.accounting.model.validator;
 
-import ivan.pronin.c2.accounting.model.Organization;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.primefaces.validate.ClientValidator;
 import org.springframework.stereotype.Component;
 
@@ -24,6 +25,8 @@ public class InvoiceValidator implements Validator, ClientValidator {
     public static final String SENDER_ORG_ID = "sender_org_select";
     public static final String RECIEVER_ORG_ID = "reciever_org_select";
 
+    private static final Logger LOGGER = LogManager.getLogger(InvoiceValidator.class);
+
     @Override
     public Map<String, Object> getMetadata() {
         return null;
@@ -36,7 +39,7 @@ public class InvoiceValidator implements Validator, ClientValidator {
 
     @Override
     public void validate(FacesContext context, UIComponent component, Object value) throws ValidatorException {
-        System.out.println(" >>>> IN VALIDATOR");
+        LOGGER.info("IN InvoiceValidator");
         if (value == null) {
             return;
         }

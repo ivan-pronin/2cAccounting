@@ -13,12 +13,13 @@ public class InvoiceCalculator {
 
     public BigDecimal calculateNds(final InvoiceBody invoiceBodyItem, final BigDecimal taxRate) {
         BigDecimal result = invoiceBodyItem.getProductCost();
-        return result.multiply(taxRate.divide(BigDecimal.valueOf(100)));
+        return taxRate != null ? result.multiply(taxRate.divide(BigDecimal.valueOf(100))) : result;
     }
 
     public BigDecimal calculateProductCost(final InvoiceBody invoiceBodyItem) {
         BigDecimal result = invoiceBodyItem.getProductPrice();
-        return result.multiply(BigDecimal.valueOf(invoiceBodyItem.getProductAmount()));
+        final BigDecimal productAmount = invoiceBodyItem.getProductAmount();
+        return productAmount != null ? result.multiply(productAmount) : productAmount;
     }
 
     public BigDecimal calculateTotalCost(final InvoiceBody invoiceBodyItem) {

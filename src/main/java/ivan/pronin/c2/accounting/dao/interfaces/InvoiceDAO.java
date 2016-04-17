@@ -14,4 +14,6 @@ public interface InvoiceDAO {
     List<Invoice> getInvoiceBySenderRecieverId(int senderId, int recieverId);
 
     List<Invoice> getInvoiceByNumber(long number);
+
+    Long saveInvoice(Invoice invoice);
 }

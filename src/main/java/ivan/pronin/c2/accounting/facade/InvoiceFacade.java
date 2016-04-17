@@ -1,24 +1,28 @@
 package ivan.pronin.c2.accounting.facade;
 
 import ivan.pronin.c2.accounting.calculation.InvoiceCalculator;
+import ivan.pronin.c2.accounting.dao.impl.InvoiceDAOImpl;
+import ivan.pronin.c2.accounting.dao.impl.StorageDAOImpl;
+import ivan.pronin.c2.accounting.dao.interfaces.InvoiceDAO;
 import ivan.pronin.c2.accounting.dao.interfaces.ProductDAO;
+import ivan.pronin.c2.accounting.dao.interfaces.StorageDAO;
 import ivan.pronin.c2.accounting.model.Invoice;
 import ivan.pronin.c2.accounting.model.Product;
+import ivan.pronin.c2.accounting.model.Storage;
 import ivan.pronin.c2.accounting.model.block.HeaderData;
 import ivan.pronin.c2.accounting.model.block.InvoiceBody;
 import ivan.pronin.c2.accounting.model.factory.IInvoiceFactory;
-import ivan.pronin.c2.accounting.model.factory.InvoiceFactory;
-import org.hibernate.Session;
-import org.hibernate.SessionFactory;
-import org.hibernate.Transaction;
+
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
+import javax.faces.application.FacesMessage;
 import javax.faces.bean.SessionScoped;
+import javax.faces.context.FacesContext;
 import java.io.Serializable;
-import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -30,13 +34,18 @@ import java.util.List;
 public class InvoiceFacade implements Serializable {
 
     @Autowired
-    private SessionFactory sessionFactory;
-
-    @Autowired
     private IInvoiceFactory invoiceFactory;
 
     @Autowired
     private InvoiceCalculator invoiceCalculator;
+
+    @Autowired
+    private InvoiceDAO invoiceDAO;
+
+    @Autowired
+    private StorageDAO storageDAO;
+
+    private static final Logger LOGGER = LogManager.getLogger(InvoiceFacade.class);
 
     private List<Invoice> inInvoices;
     private List<Invoice> outInvoices;
@@ -102,46 +111,44 @@ public class InvoiceFacade implements Serializable {
     @Transactional
     public void submitInInvoiceForm() {
         for (InvoiceBody item : inInvoiceBodyList) {
-            System.out.println(" >>> Printing InvoiceBody item: " + item);
+            LOGGER.info("Printing InvoiceBody item: " + item);
         }
 
         for (HeaderData item : inHeaderDataList) {
-            System.out.println(" >>> Printing Header item: " + item);
+            LOGGER.info("Printing Header item: " + item);
         }
 
         Invoice invoice = invoiceFactory.createInvoice(headerDataItem, invoiceBodyItem);
-        System.out.println(">>> Trying to save invoice: " + invoice);
-        Session session = sessionFactory.openSession();
-        Transaction transaction = session.beginTransaction();
-        session.persist(invoice);
-        Long id = (Long) session.save(invoice);
-        transaction.commit();
-        System.out.println(" >> Saved with id: " + id);
+        Long id = invoiceDAO.saveInvoice(invoice);
+        Storage storage = new Storage(invoice.getNumber(), invoice.getProductId(), invoice.getProductAmount());
+        storageDAO.updateStorage(storage);
+        FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Info",
+                "Данные успешно сохранены. ID: " + id));
     }
 
     public void submitOutInvoiceForm() {
-        System.out.println(" >>>>>>>>>>>> --------------- Submitting submitOutInvoiceForm..." + headerDataItem);
+        LOGGER.info("Submitting submitOutInvoiceForm..." + headerDataItem);
         for (InvoiceBody item : outInvoiceBodyList) {
-            System.out.println("Printing item: " + item);
+            LOGGER.info("Printing item: " + item);
         }
     }
 
     public void clearInForm() {
-        System.out.println("Clearing the In forms ...");
+        LOGGER.info("Clearing the In forms ...");
         inHeaderDataList.clear();
         inInvoiceBodyList.clear();
         addInInvoiceItemRow();
     }
 
     public void clearOutForm() {
-        System.out.println("Clearing the Out forms ...");
+        LOGGER.info("Clearing the Out forms ...");
         outHeaderDataList.clear();
         outInvoiceBodyList.clear();
         addOutInvoiceItemRow();
     }
 
     public void valueChanged() {
-        System.out.println(" ===valueChanged ===== value: " + value);
+        LOGGER.info(" ===valueChanged ===== value: " + value);
     }
 
     private Product testProduct;
@@ -155,7 +162,8 @@ public class InvoiceFacade implements Serializable {
     }
 
     public void testProduct() {
-        System.out.println(" >>> Test product is: " + testProduct);
+
+        LOGGER.info("Test product is: " + testProduct);
     }
 
     @Autowired

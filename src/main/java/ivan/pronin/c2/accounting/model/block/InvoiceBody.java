@@ -11,7 +11,7 @@ public class InvoiceBody {
 
     private Product product;
     private BigDecimal productPrice;
-    private Long productAmount;
+    private BigDecimal productAmount;
     private BigDecimal productCost;
     private BigDecimal ndsCost;
     private BigDecimal totalCost;
@@ -44,11 +44,9 @@ public class InvoiceBody {
         this.productPrice = productPrice;
     }
 
-    public Long getProductAmount() {
-        return productAmount;
-    }
+    public BigDecimal getProductAmount() { return productAmount;}
 
-    public void setProductAmount(Long productAmount) {
+    public void setProductAmount(BigDecimal productAmount) {
         this.productAmount = productAmount;
     }
 
