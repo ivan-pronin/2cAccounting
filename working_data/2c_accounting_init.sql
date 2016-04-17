@@ -163,13 +163,13 @@ DROP TABLE IF EXISTS `storage`;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `storage` (
   `id` bigint(20) NOT NULL AUTO_INCREMENT,
-  `invoice_id` bigint(20) NOT NULL,
+  `invoice_number` bigint(20) NOT NULL,
   `product_id` bigint(20) NOT NULL,
   `product_amount` decimal(20,4) NOT NULL,
   PRIMARY KEY (`id`),
-  KEY `fk_invoice_idx` (`invoice_id`),
+  KEY `fk_invoice_numberx` (`invoice_number`),
   KEY `fk_product_idx` (`product_id`),
-  CONSTRAINT `fk_storage_invoice_id` FOREIGN KEY (`invoice_id`) REFERENCES `invoice` (`id`) ON DELETE NO ACTION ON UPDATE CASCADE,
+  CONSTRAINT `fk_storage_invoice_number` FOREIGN KEY (`invoice_number`) REFERENCES `invoice` (`number`) ON DELETE NO ACTION ON UPDATE CASCADE,
   CONSTRAINT `fk_storage_product_id` FOREIGN KEY (`product_id`) REFERENCES `product` (`id`) ON DELETE NO ACTION ON UPDATE CASCADE
 ) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
