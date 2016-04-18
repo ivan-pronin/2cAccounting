@@ -7,6 +7,7 @@
     <class name="ivan.pronin.c2.accounting.model.User" table="user" schema="2c_accounting">
         <id name="id">
             <column name="id" sql-type="bigint(20)"/>
+            <generator class="identity"/>
         </id>
         <property name="login">
             <column name="login" sql-type="varchar(20)" length="20"/>
