@@ -3,9 +3,11 @@ package ivan.pronin.c2.accounting.facade;
 import ivan.pronin.c2.accounting.calculation.InvoiceCalculator;
 import ivan.pronin.c2.accounting.dao.impl.InvoiceDAOImpl;
 import ivan.pronin.c2.accounting.dao.impl.StorageDAOImpl;
+import ivan.pronin.c2.accounting.dao.interfaces.IncomePositionDAO;
 import ivan.pronin.c2.accounting.dao.interfaces.InvoiceDAO;
 import ivan.pronin.c2.accounting.dao.interfaces.ProductDAO;
 import ivan.pronin.c2.accounting.dao.interfaces.StorageDAO;
+import ivan.pronin.c2.accounting.model.IncomePosition;
 import ivan.pronin.c2.accounting.model.Invoice;
 import ivan.pronin.c2.accounting.model.Product;
 import ivan.pronin.c2.accounting.model.Storage;
@@ -23,6 +25,7 @@ import javax.faces.application.FacesMessage;
 import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
 import java.io.Serializable;
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -44,6 +47,9 @@ public class InvoiceFacade implements Serializable {
 
     @Autowired
     private StorageDAO storageDAO;
+
+    @Autowired
+    private IncomePositionDAO incomePositionDAO;
 
     private static final Logger LOGGER = LogManager.getLogger(InvoiceFacade.class);
 
@@ -119,11 +125,13 @@ public class InvoiceFacade implements Serializable {
         }
 
         Invoice invoice = invoiceFactory.createInvoice(headerDataItem, invoiceBodyItem);
-        Long id = invoiceDAO.saveInvoice(invoice);
+        Long invoiceId = invoiceDAO.saveInvoice(invoice);
         Storage storage = new Storage(invoice.getNumber(), invoice.getProductId(), invoice.getProductAmount());
         storageDAO.updateStorage(storage);
+        IncomePosition incomePosition = new IncomePosition(headerDataItem, invoiceBodyItem, invoiceId);
+        incomePositionDAO.addIncomePosition(incomePosition);
         FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Info",
-                "Данные успешно сохранены. ID: " + id));
+                "Данные успешно сохранены. ID: " + invoiceId));
     }
 
     public void submitOutInvoiceForm() {

@@ -1,5 +1,9 @@
 package ivan.pronin.c2.accounting.model;
 
+import com.sun.xml.internal.ws.client.sei.ResponseBuilder;
+import ivan.pronin.c2.accounting.model.block.HeaderData;
+import ivan.pronin.c2.accounting.model.block.InvoiceBody;
+
 import java.math.BigDecimal;
 
 /**
@@ -11,8 +15,20 @@ public class IncomePosition {
     private Long recieverId;
     private Long invoiceId;
     private Long productId;
-    private Long productAmount;
+    private BigDecimal productAmount;
     private BigDecimal productCost;
+
+    public IncomePosition() {
+    }
+
+    public IncomePosition(HeaderData headerData, InvoiceBody invoiceBody, Long invoiceId) {
+        this.senderId = headerData.getSenderOrg().getId();
+        this.recieverId = headerData.getRecieverOrg().getId();
+        this.invoiceId = invoiceId;
+        this.productId = invoiceBody.getProduct().getId();
+        this.productAmount = invoiceBody.getProductAmount();
+        this.productCost = invoiceBody.getProductCost();
+    }
 
     public Long getId() {
         return id;
@@ -54,11 +70,11 @@ public class IncomePosition {
         this.productId = productId;
     }
 
-    public Long getProductAmount() {
+    public BigDecimal getProductAmount() {
         return productAmount;
     }
 
-    public void setProductAmount(Long productAmount) {
+    public void setProductAmount(BigDecimal productAmount) {
         this.productAmount = productAmount;
     }
 
