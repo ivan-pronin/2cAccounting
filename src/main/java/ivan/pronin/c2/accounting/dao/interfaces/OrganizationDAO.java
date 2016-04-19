@@ -17,4 +17,6 @@ public interface OrganizationDAO {
     Organization getOrganizationById(long id);
 
     long getIdByOrganizationName(String name);
+
+    List<Organization> findOrganizations(String name);
 }

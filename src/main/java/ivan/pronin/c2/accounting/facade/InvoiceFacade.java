@@ -1,8 +1,6 @@
 package ivan.pronin.c2.accounting.facade;
 
 import ivan.pronin.c2.accounting.calculation.InvoiceCalculator;
-import ivan.pronin.c2.accounting.dao.impl.InvoiceDAOImpl;
-import ivan.pronin.c2.accounting.dao.impl.StorageDAOImpl;
 import ivan.pronin.c2.accounting.dao.interfaces.IncomePositionDAO;
 import ivan.pronin.c2.accounting.dao.interfaces.InvoiceDAO;
 import ivan.pronin.c2.accounting.dao.interfaces.ProductDAO;
@@ -15,17 +13,15 @@ import ivan.pronin.c2.accounting.model.block.HeaderData;
 import ivan.pronin.c2.accounting.model.block.InvoiceBody;
 import ivan.pronin.c2.accounting.model.factory.IInvoiceFactory;
 
+import ivan.pronin.c2.accounting.util.FacesUtils;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
-import javax.faces.application.FacesMessage;
 import javax.faces.bean.SessionScoped;
-import javax.faces.context.FacesContext;
 import java.io.Serializable;
-import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -124,14 +120,25 @@ public class InvoiceFacade implements Serializable {
             LOGGER.info("Printing Header item: " + item);
         }
 
+        for (InvoiceBody item : inInvoiceBodyList) {
+            Long invoiceId = processAndSaveInvoiceData(item, headerDataItem);
+        }
+
+
+    }
+
+    private Long processAndSaveInvoiceData(InvoiceBody invoiceBodyItem, HeaderData headerDataItem) {
         Invoice invoice = invoiceFactory.createInvoice(headerDataItem, invoiceBodyItem);
         Long invoiceId = invoiceDAO.saveInvoice(invoice);
         Storage storage = new Storage(invoice.getNumber(), invoice.getProductId(), invoice.getProductAmount());
         storageDAO.updateStorage(storage);
         IncomePosition incomePosition = new IncomePosition(headerDataItem, invoiceBodyItem, invoiceId);
-        incomePositionDAO.addIncomePosition(incomePosition);
-        FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Info",
-                "Данные успешно сохранены. ID: " + invoiceId));
+        Long incomePositionId = incomePositionDAO.addIncomePosition(incomePosition);
+        if (invoiceId > 0 && incomePositionId != null)
+        {
+            FacesUtils.printUIMessage("Запись успешно добавлена. ID: ", invoiceId);
+        }
+        return invoiceId;
     }
 
     public void submitOutInvoiceForm() {

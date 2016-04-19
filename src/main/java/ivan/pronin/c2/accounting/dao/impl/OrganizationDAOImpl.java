@@ -12,6 +12,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.security.acl.LastOwnerException;
+import java.util.Collections;
 import java.util.List;
 
 /**
@@ -46,25 +48,34 @@ public class OrganizationDAOImpl implements OrganizationDAO {
         return getOrganizationByName(name).getId();
     }
 
+    @Override
+    public List<Organization> findOrganizations(String name) {
+        LOGGER.info("Searching organizations by name: " + name);
+        Criteria criteria = getCriteria().add(Restrictions.ilike("name", name, MatchMode.ANYWHERE));
+        return getAllOrganizationsFromResult(criteria);
+    }
+
     @Transactional
     @Override
     public Organization getOrganizationByName(String name) {
-       LOGGER.info("Getting ORG by name: " + name);
+        LOGGER.info("Getting ORG by name: " + name);
         Criteria criteria = getCriteria().add(Restrictions.ilike("name", name, MatchMode.ANYWHERE));
         return getOrganizationFromResult(criteria);
     }
 
-    private Organization getOrganizationFromResult(Criteria criteria) {
+    private List<Organization> getAllOrganizationsFromResult(Criteria criteria) {
         List<Organization> result = criteria.list();
         if (result.isEmpty()) {
             LOGGER.error("No organizations were found");
-            return null;
+            return Collections.emptyList();
         } else if (result.size() > 1) {
-            LOGGER.warn("More than 1 organization was found, returning first one");
+            LOGGER.warn("More than 1 organization was found, returning all of them");
         }
-        final Organization organization = result.get(0);
-        LOGGER.info("Returning ORG: " + organization);
-        return organization;
+        return result;
+    }
+
+    private Organization getOrganizationFromResult(Criteria criteria) {
+        return getAllOrganizationsFromResult(criteria).get(0);
     }
 
     private Criteria getCriteria() {

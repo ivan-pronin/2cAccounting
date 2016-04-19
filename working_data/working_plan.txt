@@ -35,12 +35,12 @@
 2. Process incoming Invoice:
 +++- Add to storage
 +++>>> add products of each type to the storage amount
-- Add IncomePositions
->>> senderId != id of Melnikov
->>> incoiceId > isFound
->>> productId > isFound
->>> productAmount > 0
->>> productCost > 0
++++ Add IncomePositions
++++>>> senderId != id of Melnikov
++++>>> invoiceId > isFound
++++>>> productId > isFound
++++>>> productAmount > 0
++++>>> productCost > 0
 
 3. Make outgoing Payment
 --- add Payment data:
