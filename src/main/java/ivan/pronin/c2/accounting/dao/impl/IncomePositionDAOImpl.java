@@ -23,6 +23,7 @@ public class IncomePositionDAOImpl implements IncomePositionDAO {
 
     public static final String MELNIKOV_ORG = "Мельников";
     private static final String SEPARATOR = " | ";
+
     @Autowired
     private CriteriaFactory criteriaFactory;
 

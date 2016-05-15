@@ -11,157 +11,175 @@
 </h:head>
 <h:body>
     <ui:composition>
-        <p:tabView>
-            <p:tab title="Приходные ТТН" id="incoming_ttn">
-                <h:form>
-                    <p:dataTable value="#{invoiceFacade.inInvoiceBodyList}" var="invoiceBodyItem"
-                                 id="incoming_ttn_invoice_table">
-                        <p:column headerText="Наименование товара">
-                            <p:autoComplete id="incoming_ttn_productName" value="#{invoiceBodyItem.product}"
-                                            completeMethod="#{invoiceFacade.completeProduct}"
-                                            var="product" itemLabel="#{product}" itemValue="#{product}"
-                                            converter="#{productConverter}" required="true"
-                                            label="Название товара" placeholder="Название товара"/>
+        <h:form id="invoiceForm">
 
-                        </p:column>
-                        <p:column headerText="Цена">
-                            <p:inputText id="incoming_ttn_productPrice" value="#{invoiceBodyItem.productPrice}"
-                                         size="10" required="true" placeholder="Цена" label="Цена">
-                                <f:validateLongRange minimum="1"/>
-                                <f:ajax event="blur" listener="#{invoiceFacade.calculateProductCost}" update="incoming_ttn_productCost incoming_ttn_ndsCost incoming_ttn_totalCost" render="@form"/>
-                            </p:inputText>
-                        </p:column>
-                        <p:column headerText="Количество">
-                            <p:inputText id="incoming_ttn_productAmount" value="#{invoiceBodyItem.productAmount}"
-                                         size="10" required="true" placeholder="Количество" label="Количество">
-                                <f:validateLongRange minimum="1"/>
-                                <f:ajax event="blur" listener="#{invoiceFacade.calculateProductCost}" update="incoming_ttn_productCost incoming_ttn_ndsCost incoming_ttn_totalCost" render="@form"/>
-                            </p:inputText>
-                        </p:column>
-                        <p:column headerText="Стоимость">
-                            <p:inputText id="incoming_ttn_productCost" value="#{invoiceBodyItem.productCost}"
-                                         size="10" required="true" placeholder="Стоимость" label="Стоимость">
-                                <f:validateLongRange minimum="1"/>
+            <p:growl id="msgs" showDetail="true" />
 
+            <p:tabView id="invoiceTabView" activeIndex="#{uiRenderer.activeTabIndex}">
 
-                            </p:inputText>
-                        </p:column>
-                        <p:column headerText="Ст-сть НДС">
-                            <p:inputText id="incoming_ttn_ndsCost" value="#{invoiceBodyItem.ndsCost}" size="10"
-                                         required="true" placeholder="Стоимость НДС" label="Стоимость НДС">
-                                <f:validateLongRange minimum="1"/>
+                <f:ajax event="tabChange" listener="#{uiRenderer.onTabChange}" render="invoiceTabView" />
 
+                <p:tab title="Приходные ТТН" id="incoming_ttn">
+                    <h:form>
+                        <p:dataTable value="#{invoiceFacade.inInvoiceBodyList}" var="invoiceBodyItem"
+                                     id="incoming_ttn_invoice_table">
+                            <p:column headerText="Наименование товара">
+                                <p:autoComplete id="incoming_ttn_productName" value="#{invoiceBodyItem.product}"
+                                                completeMethod="#{invoiceFacade.completeProduct}"
+                                                var="product" itemLabel="#{product}" itemValue="#{product}"
+                                                converter="#{productConverter}" required="true"
+                                                label="Название товара" placeholder="Название товара"/>
 
-                            </p:inputText>
-                        </p:column>
-                        <p:column headerText="Итого">
-                            <p:inputText id="incoming_ttn_totalCost" value="#{invoiceBodyItem.totalCost}" size="10"
-                                         required="true" placeholder="Итого" label="Итого">
-                                <f:validateLongRange minimum="1"/>
-
-                            </p:inputText>
-                        </p:column>
-                    </p:dataTable>
-                    <p:commandButton id="incoming_ttn_addButton" icon="ui-icon-plus" value="Добавить строку"
-                                     action="#{invoiceFacade.addInInvoiceItemRow}"/>
-                    <p:commandButton id="incoming_ttn_saveButton" value="Сохранить" icon="ui-icon-check"
-                                     action="#{invoiceFacade.submitInInvoiceForm}" validateClient="true"/>
-                    <p:commandButton id="incoming_ttn_cancelButton" value="Отмена" icon="ui-icon-check"
-                                     action="#{invoiceFacade.clearInForm}"/>
-                </h:form>
-                <div>
-                    <p:panel>
-                        <p:messages showDetail="true" autoUpdate="true" closable="true"/>
-                    </p:panel>
-                </div>
-            </p:tab>
-
-            <p:tab title="Расходные ТТН" id="outgoing_ttn">
-                <h:form>
-                    <p:dataTable value="#{invoiceFacade.outInvoiceBodyList}" var="invoiceBodyItem"
-                                 id="outgoing_ttn_invoice_table">
-                        <p:column headerText="Наименование">
-                            <p:inputText id="outgoing_ttn_productName" value="#{invoiceBodyItem.product}"
-                                         size="10"/>
-                        </p:column>
-                        <p:column headerText="Цена">
-                            <p:inputText id="outgoing_ttn_productPrice" value="#{invoiceBodyItem.productPrice}"
-                                         size="10"/>
-                        </p:column>
-                        <p:column headerText="Количество">
-                            <p:inputText id="outgoing_ttn_productAmount" value="#{invoiceBodyItem.productAmount}"
-                                         size="10"/>
-                        </p:column>
-                        <p:column headerText="Стоимость">
-                            <p:inputText id="outgoing_ttn_productCost" value="#{invoiceBodyItem.productCost}"
-                                         size="10"/>
-                        </p:column>
-                        <p:column headerText="Ст-сть НДС">
-                            <p:inputText id="outgoing_ttn_ndsCost" value="#{invoiceBodyItem.ndsCost}" size="10"/>
-                        </p:column>
-                        <p:column headerText="Итого">
-                            <p:inputText id="outgoing_ttn_totalCost" value="#{invoiceBodyItem.totalCost}" size="10"/>
-                        </p:column>
-                    </p:dataTable>
-                    <p:commandButton id="outgoing_ttn_addButton" icon="ui-icon-plus" value="Добавить строку"
-                                     action="#{invoiceFacade.addOutInvoiceItemRow}"/>
-                    <p:commandButton id="outgoing_ttn_saveButton" value="Сохранить" icon="ui-icon-check"
-                                     action="#{invoiceFacade.submitOutInvoiceForm}"/>
-                    <p:commandButton id="outgoing_ttn_cancelButton" value="Отмена" icon="ui-icon-check"
-                                     action="#{invoiceFacade.clearOutForm}"/>
-                </h:form>
-                <div>
-                    <p:panel>
-                        <p:messages autoUpdate="true"/>
-                    </p:panel>
-                </div>
-            </p:tab>
-
-            <p:tab title="Test TAB">
-                <h:form>
-                    <p:dataTable value="#{invoiceFacade.inInvoiceBodyList}" var="invoiceBodyItem"
-                                 id="incoming_ttn_invoice_table2">
-
-                        <p:column headerText="Цена">
-                            <p:inputText id="incoming_ttn_productPrice2" value="#{invoiceBodyItem.productPrice}"
-                                         size="10" required="true" placeholder="Цена" label="Цена">
-                                <f:validateLongRange minimum="1"/>
-
-                            </p:inputText>
-                        </p:column>
-                        <p:column headerText="Количество">
-                            <p:inputText id="incoming_ttn_productAmount2" value="#{invoiceBodyItem.productAmount}"
-                                         size="10" required="true" placeholder="Количество" label="Количество">
-                                <f:validateLongRange minimum="1"/>
-
-                            </p:inputText>
-                        </p:column>
-                        <p:column headerText="Стоимость">
-                            <p:inputText id="incoming_ttn_productCost2" value="#{invoiceBodyItem.productCost}"
-                                         size="10" required="true" placeholder="Стоимость" label="Стоимость">
-
-                            </p:inputText>
-                        </p:column>
-
-                    </p:dataTable>
+                            </p:column>
+                            <p:column headerText="Цена">
+                                <p:inputText id="incoming_ttn_productPrice" value="#{invoiceBodyItem.productPrice}"
+                                             size="10" required="true" placeholder="Цена" label="Цена">
+                                    <f:validateLongRange minimum="1"/>
+                                    <f:ajax event="blur" listener="#{invoiceFacade.calculateProductCost}"
+                                            update="incoming_ttn_productCost incoming_ttn_ndsCost incoming_ttn_totalCost"
+                                            render="@form"/>
+                                </p:inputText>
+                            </p:column>
+                            <p:column headerText="Количество">
+                                <p:inputText id="incoming_ttn_productAmount" value="#{invoiceBodyItem.productAmount}"
+                                             size="10" required="true" placeholder="Количество" label="Количество">
+                                    <f:validateLongRange minimum="1"/>
+                                    <f:ajax event="blur" listener="#{invoiceFacade.calculateProductCost}"
+                                            update="incoming_ttn_productCost incoming_ttn_ndsCost incoming_ttn_totalCost"
+                                            render="@form"/>
+                                </p:inputText>
+                            </p:column>
+                            <p:column headerText="Стоимость">
+                                <p:inputText id="incoming_ttn_productCost" value="#{invoiceBodyItem.productCost}"
+                                             size="10" required="true" placeholder="Стоимость" label="Стоимость">
+                                    <f:validateLongRange minimum="1"/>
 
 
-                </h:form>
+                                </p:inputText>
+                            </p:column>
+                            <p:column headerText="Ст-сть НДС">
+                                <p:inputText id="incoming_ttn_ndsCost" value="#{invoiceBodyItem.ndsCost}" size="10"
+                                             required="true" placeholder="Стоимость НДС" label="Стоимость НДС">
+                                    <f:validateLongRange minimum="1"/>
 
 
-            </p:tab>
-        </p:tabView>
+                                </p:inputText>
+                            </p:column>
+                            <p:column headerText="Итого">
+                                <p:inputText id="incoming_ttn_totalCost" value="#{invoiceBodyItem.totalCost}" size="10"
+                                             required="true" placeholder="Итого" label="Итого">
+                                    <f:validateLongRange minimum="1"/>
 
-        <h:form id="form_ajax">
-            <p:panelGrid columns="3" id="panel_ajax">
-                <h:outputText value="Keyup: " id="field_ajax"/>
-                <p:inputText value="{invoiceFacade.text}" id="test_input">
+                                </p:inputText>
+                            </p:column>
+                        </p:dataTable>
+                        <p:commandButton id="incoming_ttn_addButton" icon="ui-icon-plus" value="Добавить строку"
+                                         action="#{invoiceFacade.addInInvoiceItemRow}"/>
+                        <p:commandButton id="incoming_ttn_saveButton" value="Сохранить" icon="ui-icon-check"
+                                         action="#{invoiceFacade.submitInInvoiceForm}" validateClient="true"/>
+                        <p:commandButton id="incoming_ttn_cancelButton" value="Отмена" icon="ui-icon-check"
+                                         action="#{invoiceFacade.clearInForm}"/>
+                    </h:form>
+                    <div>
+                        <p:panel>
+                            <!--<p:messages showDetail="true" autoUpdate="true" closable="true"/>-->
+                        </p:panel>
+                    </div>
+                </p:tab>
 
-                </p:inputText>
-                <p:outputLabel id="textbox_ttn" value="{invoiceFacade.text}">
+                <p:tab title="Расходные ТТН" id="outgoing_ttn">
+                    <h:form>
+                        <p:dataTable value="#{invoiceFacade.outInvoiceBodyList}" var="invoiceBodyItem"
+                                     id="outgoing_ttn_invoice_table">
+                            <p:column headerText="Наименование">
+                                <p:inputText id="outgoing_ttn_productName" value="#{invoiceBodyItem.product}"
+                                             size="10"/>
+                            </p:column>
+                            <p:column headerText="Цена">
+                                <p:inputText id="outgoing_ttn_productPrice" value="#{invoiceBodyItem.productPrice}"
+                                             size="10"/>
+                            </p:column>
+                            <p:column headerText="Количество">
+                                <p:inputText id="outgoing_ttn_productAmount" value="#{invoiceBodyItem.productAmount}"
+                                             size="10"/>
+                            </p:column>
+                            <p:column headerText="Стоимость">
+                                <p:inputText id="outgoing_ttn_productCost" value="#{invoiceBodyItem.productCost}"
+                                             size="10"/>
+                            </p:column>
+                            <p:column headerText="Ст-сть НДС">
+                                <p:inputText id="outgoing_ttn_ndsCost" value="#{invoiceBodyItem.ndsCost}" size="10"/>
+                            </p:column>
+                            <p:column headerText="Итого">
+                                <p:inputText id="outgoing_ttn_totalCost" value="#{invoiceBodyItem.totalCost}"
+                                             size="10"/>
+                            </p:column>
+                        </p:dataTable>
+                        <p:commandButton id="outgoing_ttn_addButton" icon="ui-icon-plus" value="Добавить строку"
+                                         action="#{invoiceFacade.addOutInvoiceItemRow}"/>
+                        <p:commandButton id="outgoing_ttn_saveButton" value="Сохранить" icon="ui-icon-check"
+                                         action="#{invoiceFacade.submitOutInvoiceForm}"/>
+                        <p:commandButton id="outgoing_ttn_cancelButton" value="Отмена" icon="ui-icon-check"
+                                         action="#{invoiceFacade.clearOutForm}"/>
+                    </h:form>
+                    <div>
+                        <p:panel>
+                            <!--<p:messages showDetail="true" autoUpdate="true" closable="true"/>-->
+                        </p:panel>
+                    </div>
+                </p:tab>
 
-                </p:outputLabel>
-            </p:panelGrid>
+                <p:tab title="Test TAB">
+                    <h:form>
+                        <p:dataTable value="#{invoiceFacade.inInvoiceBodyList}" var="invoiceBodyItem"
+                                     id="incoming_ttn_invoice_table2">
+
+                            <p:column headerText="Цена">
+                                <p:inputText id="incoming_ttn_productPrice2" value="#{invoiceBodyItem.productPrice}"
+                                             size="10" required="true" placeholder="Цена" label="Цена">
+                                    <f:validateLongRange minimum="1"/>
+
+                                </p:inputText>
+                            </p:column>
+                            <p:column headerText="Количество">
+                                <p:inputText id="incoming_ttn_productAmount2" value="#{invoiceBodyItem.productAmount}"
+                                             size="10" required="true" placeholder="Количество" label="Количество">
+                                    <f:validateLongRange minimum="1"/>
+
+                                </p:inputText>
+                            </p:column>
+                            <p:column headerText="Стоимость">
+                                <p:inputText id="incoming_ttn_productCost2" value="#{invoiceBodyItem.productCost}"
+                                             size="10" required="true" placeholder="Стоимость" label="Стоимость">
+
+                                </p:inputText>
+                            </p:column>
+
+                        </p:dataTable>
+
+
+                    </h:form>
+                    <div>
+                        <p:panel>
+                            <!--<p:messages showDetail="true" autoUpdate="true" closable="true"/>-->
+                        </p:panel>
+                    </div>
+
+                </p:tab>
+            </p:tabView>
+
+            <h:form id="form_ajax">
+                <p:panelGrid columns="3" id="panel_ajax">
+                    <h:outputText value="Keyup: " id="field_ajax"/>
+                    <p:inputText value="{invoiceFacade.text}" id="test_input">
+
+                    </p:inputText>
+                    <p:outputLabel id="textbox_ttn" value="{invoiceFacade.text}">
+
+                    </p:outputLabel>
+                </p:panelGrid>
+            </h:form>
+
         </h:form>
     </ui:composition>
 </h:body>
