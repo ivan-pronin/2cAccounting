@@ -25,11 +25,10 @@
                                      id="incoming_ttn_invoice_table">
                             <p:column headerText="Наименование товара">
                                 <p:autoComplete id="incoming_ttn_productName" value="#{invoiceBodyItem.product}"
-                                                completeMethod="#{invoiceFacade.completeProduct}"
+                                                completeMethod="#{productUtils.completeProduct}"
                                                 var="product" itemLabel="#{product}" itemValue="#{product}"
                                                 converter="#{productConverter}" required="true"
                                                 label="Название товара" placeholder="Название товара"/>
-
                             </p:column>
                             <p:column headerText="Цена">
                                 <p:inputText id="incoming_ttn_productPrice" value="#{invoiceBodyItem.productPrice}"
@@ -53,32 +52,27 @@
                                 <p:inputText id="incoming_ttn_productCost" value="#{invoiceBodyItem.productCost}"
                                              size="10" required="true" placeholder="Стоимость" label="Стоимость">
                                     <f:validateLongRange minimum="1"/>
-
-
                                 </p:inputText>
                             </p:column>
                             <p:column headerText="Ст-сть НДС">
                                 <p:inputText id="incoming_ttn_ndsCost" value="#{invoiceBodyItem.ndsCost}" size="10"
                                              required="true" placeholder="Стоимость НДС" label="Стоимость НДС">
                                     <f:validateLongRange minimum="1"/>
-
-
                                 </p:inputText>
                             </p:column>
                             <p:column headerText="Итого">
                                 <p:inputText id="incoming_ttn_totalCost" value="#{invoiceBodyItem.totalCost}" size="10"
                                              required="true" placeholder="Итого" label="Итого">
                                     <f:validateLongRange minimum="1"/>
-
                                 </p:inputText>
                             </p:column>
                         </p:dataTable>
                         <p:commandButton id="incoming_ttn_addButton" icon="ui-icon-plus" value="Добавить строку"
-                                         action="#{invoiceFacade.addInInvoiceItemRow}"/>
+                                         action="#{invoiceFacade.addInvoiceItemRow}" immediate="true"/>
                         <p:commandButton id="incoming_ttn_saveButton" value="Сохранить" icon="ui-icon-check"
-                                         action="#{invoiceFacade.submitInInvoiceForm}" validateClient="true"/>
+                                         action="#{invoiceFacade.submitInvoiceForm}" validateClient="true"/>
                         <p:commandButton id="incoming_ttn_cancelButton" value="Отмена" icon="ui-icon-check"
-                                         action="#{invoiceFacade.clearInForm}"/>
+                                         action="#{invoiceFacade.clearInvoiceForm}" immediate="true"/>
                     </h:form>
                     <div>
                         <p:panel>

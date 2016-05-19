@@ -43,6 +43,8 @@
 +++>>> productCost > 0
 
 3. Make outgoing Payment
++++ Add mechanism to define which direction (IN / OUT) the current entity is being worked with. This will help to avoid
+similar clearIn / clearOut etc. methods
 --- add Payment data:
 >>> id > isFound
 >>> number > 0

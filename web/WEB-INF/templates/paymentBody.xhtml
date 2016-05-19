@@ -1,0 +1,187 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+<h:head>
+    <title>Facelet Title</title>
+</h:head>
+<h:body>
+    <ui:composition>
+        <p:tabView>
+            <p:tab title="Входящие оплаты" id="incoming_payment">
+                <h:form>
+                    <p:dataTable value="#{paymentFacade.paymentBodyList}" var="paymentBodyItem"
+                                 id="incoming_payment_table">
+                        <p:column headerText="Наименование товара">
+                            <p:autoComplete id="incoming_payment_productName" value="#{paymentBodyItem.product}"
+                                            completeMethod="#{productUtils.completeProduct}"
+                                            var="product" itemLabel="#{product}" itemValue="#{product}"
+                                            converter="#{productConverter}" required="true"
+                                            label="Название товара" placeholder="Название товара"/>
+
+                        </p:column>
+                        <p:column headerText="Цена">
+                            <p:inputText id="incoming_payment_productPrice" value="#{paymentBodyItem.productPrice}"
+                                         size="10" required="true" placeholder="Цена" label="Цена">
+                                <f:validateLongRange minimum="1"/>
+                                <f:ajax event="blur" listener="#{paymentFacade.calculateProductCost}" update="incoming_payment_productCost incoming_payment_ndsCost incoming_payment_totalCost" render="@form"/>
+                            </p:inputText>
+                        </p:column>
+                        <p:column headerText="Количество">
+                            <p:inputText id="incoming_payment_productAmount" value="#{paymentBodyItem.productAmount}"
+                                         size="10" required="true" placeholder="Количество" label="Количество">
+                                <f:validateLongRange minimum="1"/>
+                                <f:ajax event="blur" listener="#{paymentFacade.calculateProductCost}" update="incoming_payment_productCost incoming_payment_ndsCost incoming_payment_totalCost" render="@form"/>
+                            </p:inputText>
+                        </p:column>
+                        <p:column headerText="Стоимость">
+                            <p:inputText id="incoming_payment_productCost" value="#{paymentBodyItem.productCost}"
+                                         size="10" required="true" placeholder="Стоимость" label="Стоимость">
+                                <f:validateLongRange minimum="1"/>
+
+                            </p:inputText>
+                        </p:column>
+                        <p:column headerText="Ст-сть НДС">
+                            <p:inputText id="incoming_payment_ndsCost" value="#{paymentBodyItem.ndsCost}" size="10"
+                                         required="true" placeholder="Стоимость НДС" label="Стоимость НДС">
+                                <f:validateLongRange minimum="1"/>
+
+                            </p:inputText>
+                        </p:column>
+                        <p:column headerText="Итого">
+                            <p:inputText id="incoming_payment_totalCost" value="#{paymentBodyItem.totalCost}" size="10"
+                                         required="true" placeholder="Итого" label="Итого">
+                                <f:validateLongRange minimum="1"/>
+
+                            </p:inputText>
+                        </p:column>
+                    </p:dataTable>
+                    <p:commandButton id="incoming_payment_addButton" icon="ui-icon-plus" value="Добавить строку"
+                                     action="#{paymentFacade.addPaymentItemRow}"/>
+                    <p:commandButton id="incoming_payment_saveButton" value="Сохранить" icon="ui-icon-check"
+                                     action="#{paymentFacade.submitPaymentForm}" validateClient="true"/>
+                    <p:commandButton id="incoming_payment_cancelButton" value="Отмена" icon="ui-icon-check"
+                                     action="#{paymentFacade.clearPaymentForm}"/>
+                </h:form>
+                <div>
+                    <p:panel>
+                        <p:messages showDetail="true" autoUpdate="true" closable="true"/>
+                    </p:panel>
+                </div>
+            </p:tab>
+
+            <p:tab title="Исходящие оплаты" id="outgoing_payment" >
+                <h:form>
+                    <p:dataTable value="#{paymentFacade.paymentBodyList}" var="paymentBodyItem"
+                                 id="outgoing_payment_table">
+                        <p:column headerText="Наименование товара">
+                            <p:autoComplete id="outgoing_payment_productName" value="#{paymentBodyItem.product}"
+                                            completeMethod="#{productUtils.completeProduct}"
+                                            var="product" itemLabel="#{product}" itemValue="#{product}"
+                                            converter="#{productConverter}" required="true"
+                                            label="Название товара" placeholder="Название товара"/>
+
+                        </p:column>
+                        <p:column headerText="Цена">
+                            <p:inputText id="outgoing_payment_productPrice" value="#{paymentBodyItem.productPrice}"
+                                         size="10" required="true" placeholder="Цена" label="Цена">
+                                <f:validateLongRange minimum="1"/>
+                                <f:ajax event="blur" listener="#{paymentFacade.calculateProductCost}" update="outgoing_payment_productCost outgoing_payment_ndsCost outgoing_payment_totalCost" render="@form"/>
+                            </p:inputText>
+                        </p:column>
+                        <p:column headerText="Количество">
+                            <p:inputText id="outgoing_payment_productAmount" value="#{paymentBodyItem.productAmount}"
+                                         size="10" required="true" placeholder="Количество" label="Количество">
+                                <f:validateLongRange minimum="1"/>
+                                <f:ajax event="blur" listener="#{paymentFacade.calculateProductCost}" update="outgoing_payment_productCost outgoing_payment_ndsCost outgoing_payment_totalCost" render="@form"/>
+                            </p:inputText>
+                        </p:column>
+                        <p:column headerText="Стоимость">
+                            <p:inputText id="outgoing_payment_productCost" value="#{paymentBodyItem.productCost}"
+                                         size="10" required="true" placeholder="Стоимость" label="Стоимость">
+                                <f:validateLongRange minimum="1"/>
+
+                            </p:inputText>
+                        </p:column>
+                        <p:column headerText="Ст-сть НДС">
+                            <p:inputText id="outgoing_payment_ndsCost" value="#{paymentBodyItem.ndsCost}" size="10"
+                                         required="true" placeholder="Стоимость НДС" label="Стоимость НДС">
+                                <f:validateLongRange minimum="1"/>
+
+                            </p:inputText>
+                        </p:column>
+                        <p:column headerText="Итого">
+                            <p:inputText id="outgoing_payment_totalCost" value="#{paymentBodyItem.totalCost}" size="10"
+                                         required="true" placeholder="Итого" label="Итого">
+                                <f:validateLongRange minimum="1"/>
+
+                            </p:inputText>
+                        </p:column>
+                    </p:dataTable>
+                    <p:commandButton id="outgoing_payment_addButton" icon="ui-icon-plus" value="Добавить строку"
+                                     action="#{paymentFacade.addPaymentItemRow}"/>
+                    <p:commandButton id="outgoing_payment_saveButton" value="Сохранить" icon="ui-icon-check"
+                                     action="#{paymentFacade.submitPaymentForm}" validateClient="true"/>
+                    <p:commandButton id="outgoing_payment_cancelButton" value="Отмена" icon="ui-icon-check"
+                                     action="#{paymentFacade.clearPaymentForm}"/>
+                </h:form>
+                <div>
+                    <p:panel>
+                        <p:messages showDetail="true" autoUpdate="true" closable="true"/>
+                    </p:panel>
+                </div>
+            </p:tab>
+            <p:tab title="Test TAB PAYMENTS" >
+                <h:form>
+                    <p:dataTable value="#{invoiceFacade.inInvoiceBodyList}" var="invoiceBodyItem"
+                                 id="incoming_ttn_invoice_table2">
+
+                        <p:column headerText="Цена">
+                            <p:inputText id="incoming_ttn_productPrice2" value="#{invoiceBodyItem.productPrice}"
+                                         size="10" required="true" placeholder="Цена" label="Цена">
+                                <f:validateLongRange minimum="1"/>
+
+                            </p:inputText>
+                        </p:column>
+                        <p:column headerText="Количество">
+                            <p:inputText id="incoming_ttn_productAmount2" value="#{invoiceBodyItem.productAmount}"
+                                         size="10" required="true" placeholder="Количество" label="Количество">
+                                <f:validateLongRange minimum="1"/>
+
+                            </p:inputText>
+                        </p:column>
+                        <p:column headerText="Стоимость">
+                            <p:inputText id="incoming_ttn_productCost2" value="#{invoiceBodyItem.productCost}"
+                                         size="10" required="true" placeholder="Стоимость" label="Стоимость">
+
+                            </p:inputText>
+                        </p:column>
+
+                    </p:dataTable>
+
+
+                </h:form>
+
+
+            </p:tab>
+        </p:tabView>
+
+        <h:form id="form_ajax">
+            <p:panelGrid columns="3" id="panel_ajax">
+                <h:outputText value="Keyup: " id="field_ajax"/>
+                <p:inputText value="{invoiceFacade.text}" id="test_input">
+
+                </p:inputText>
+                <p:outputLabel id="textbox_ttn" value="{invoiceFacade.text}">
+
+                </p:outputLabel>
+            </p:panelGrid>
+        </h:form>
+    </ui:composition>
+</h:body>
+</html>
+

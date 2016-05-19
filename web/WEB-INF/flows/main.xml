@@ -4,15 +4,23 @@
       xsi:schemaLocation="http://www.springframework.org/schema/webflow http://www.springframework.org/schema/webflow/spring-webflow-2.0.xsd">
 
     <view-state id="main">
-<!--    <on-render>
+        <transition on="openInvoicesPage" to="main" />
+        <transition on="openPaymentsPage" to="paymentsPage" />
+<!--
+    <on-render>
         <evaluate expression="testBean.test()"/>
-    </on-render>-->
+    </on-render>
+-->
 
 <!--
         <on-render>
             &lt;!&ndash;<evaluate expression="productDAOImpl.getAll()"/>&ndash;&gt;
             <evaluate expression="invoiceDAOImpl.getAll()"/>
         </on-render>-->
+    </view-state>
+    <view-state id="paymentsPage" view="/WEB-INF/templates/payments.xhtml">
+        <transition on="openInvoicesPage" to="main" />
+        <transition on="openPaymentsPage" to="paymentsPage" />
     </view-state>
 
 </flow>

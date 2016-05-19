@@ -13,7 +13,7 @@
 <h:body>
     <ui:composition>
         <h:form>
-            <p:dataTable value="#{invoiceFacade.inHeaderDataList}" var="headerDataItem">
+            <p:dataTable value="#{paymentFacade.headerDataList}" var="headerDataItem">
                 <p:column>
                     <p:selectOneMenu id="sender_org_select" value="#{headerDataItem.senderOrg}"
                                      converter="#{organizationConverter}" style="width:150px;" required="true"
@@ -34,7 +34,6 @@
                     <br/>
                     <p:selectOneMenu id="taxrate_to_select" style="width:150px;" value="#{headerDataItem.taxRate}"
                                      label="Ставка НДС"
-
                                      converter="#{taxRatesConverter}">
                         <f:selectItem itemLabel="НДС 20%" itemValue="#{taxRatesDAOImpl.getTaxById(1)}"/>
                         <f:selectItems value="#{taxRatesDAOImpl.getAll()}" var="taxRates" itemValue="#{taxRates}"
@@ -46,13 +45,13 @@
                     <br/>
                     <p:inputText id="entity_number" required="true" onchange="submit()" value="#{headerDataItem.number}"
                                  size="17"
-                                 placeholder="Номер:"
+                                 placeholder="Номер ТТН:"
                                  onclick="this.value='';"/>
                     <br/>
                 </p:column>
             </p:dataTable>
             <p:commandButton value="Сохранить2" icon="ui-icon-check"
-                             action="#{invoiceFacade.submitInInvoiceForm}" validateClient="true"/>
+                             action="#{paymentFacade.submitTestPaymentHeader}" validateClient="true"/>
         </h:form>
         <div>
             <p:panel>
