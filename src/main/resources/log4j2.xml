@@ -16,7 +16,7 @@
         <Logger name="org.springframework.context.support.SimpleThreadScope" level="ERROR" />
         <!-- <Logger name="org.apache.http" level="DEBUG" />
         <Logger name="org.apache.http.wire" level="ERROR" /> -->
-        <Logger name="com.jjconsumer.dte.bdd.log" level="INFO" additivity="false">
+        <Logger name="com.ivan.pronin.log" level="INFO" additivity="false">
             <AppenderRef ref="console" />
             <AppenderRef ref="file" />
         </Logger>
